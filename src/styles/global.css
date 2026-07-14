@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+
+
+
+/* ═══════════════════════════════════════════════════════════ */
+/* 🔤 FUENTES PERSONALIZADAS - Cormorant SC                    */
+/* ═══════════════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('/fonts/CormorantSC-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('/fonts/CormorantSC-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('/fonts/CormorantSC-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('/fonts/CormorantSC-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('/fonts/CormorantSC-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* 🔤 FUENTE PERSONALIZADA - Montigny                          */
+/* ═══════════════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: 'Montigny';
+  src: url('/fonts/Montigny Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+
+
+
+
+
+
+@utility font-great-vibes {
+  font-family: 'Great Vibes', cursive;
+}
+
+@utility font-crimson {
+  font-family: 'Crimson Text', serif;
+}
+
+@utility font-cormorant {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+@utility font-charm {
+  font-family: 'Charm', cursive;
+}
+
+@utility font-cormorant-sc {
+  font-family: 'Cormorant SC', serif;
+}
+
+@utility font-montigny {
+  font-family: 'Montigny', serif;
+}

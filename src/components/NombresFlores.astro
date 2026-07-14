@@ -1,0 +1,194 @@
+---
+// NombresFlores.astro
+---
+
+<section
+    id="nombres-flores"
+    class="relative w-full overflow-hidden flex items-center justify-center pt-20 pb-2"
+>
+    <!-- CONTENIDO CENTRAL -->
+    <div
+        class="relative z-[10] mx-auto max-w-md w-full flex flex-col items-center justify-center text-center px-8"
+    >
+        <!-- INVITACIÓN -->
+        <div
+            id="texto-invito"
+            class="font-cormorant uppercase text-[#e2ac30] leading-[1.9] tracking-normal"
+        >
+            <p class="m-0 text-[18px]">Te invito</p>
+            <p class="m-0 text-[18px]">
+                a celebrar mi fiesta
+            </p>
+        </div>
+
+        <!-- XV -->
+        <img
+            src="/imagenes/xv.png"
+            alt="XV"
+            id="texto-xv"
+            class="pointer-events-none select-none block w-[150px] h-auto mt-4"
+        />
+
+        <!-- AÑOS -->
+        <h2
+            id="texto-anos"
+            class="m-0 mt-1 font-cormorant uppercase text-[#f5efdf] text-[26px] leading-none tracking-[0.4em]"
+        >
+            Años
+        </h2>
+
+        <!-- SEPARADOR ARRIBA -->
+        <img
+            src="/imagenes/separador.png"
+            alt=""
+            id="sep-arriba"
+            class="pointer-events-none select-none block w-[120px] h-auto mt-7"
+        />
+
+        <!-- NOMBRE -->
+        <h1
+            id="texto-nombre"
+            class="m-0 mt-3 font-montigny text-[#e2ac30] text-[60px] leading-[1.05]"
+        >
+            Alexa Raffaela
+        </h1>
+
+        <!-- APELLIDOS -->
+        <p
+            id="texto-apellidos"
+            class="m-0 mt-2 font-cormorant uppercase text-[#e2ac30] text-[16px] tracking-[0.35em]"
+        >
+            Gordillo Reynolds
+        </p>
+
+        <!-- SEPARADOR ABAJO -->
+        <img
+            src="/imagenes/separador.png"
+            alt=""
+            id="sep-abajo"
+            class="pointer-events-none select-none block w-[120px] h-auto mt-4"
+        />
+
+        <!-- DEDICATORIA -->
+        <p
+            id="texto-dedicatoria"
+            class="m-0 mt-6 font-cormorant italic text-[#ece3cf] text-[19px] leading-[1.8] px-4"
+        >
+            Un sueño es un deseo que pide tu corazón
+        </p>
+    </div>
+</section>
+
+<!-- BOTÓN FLOTANTE PLAY/PAUSE -->
+<button
+    id="btn-audio-control"
+    aria-label="Controlar música"
+    class="fixed bottom-6 right-6 z-[9999] w-12 h-12 rounded-full shadow-lg
+           bg-white border border-[#5a6a32]/30 flex items-center justify-center
+           transition-all duration-300 hover:scale-110 active:scale-95"
+    style="opacity: 0; pointer-events: none;"
+>
+    <svg
+        id="icono-pause"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-[#5a6a32]"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+    >
+        <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+        <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+    </svg>
+    <svg
+        id="icono-play"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-[#5a6a32] hidden"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+    >
+        <path d="M8 5v14l11-7z"></path>
+    </svg>
+</button>
+
+<script>
+    import { gsap } from "gsap";
+
+    (window as any).iniciarAnimacionNombresFlores = () => {
+        const nf = document.getElementById("nombres-flores");
+        if (!nf) return;
+
+        // Todos los elementos entran al mismo tiempo, suave y elegante
+        gsap.from(
+            [
+                "#texto-invito",
+                "#texto-xv",
+                "#texto-anos",
+                "#sep-arriba",
+                "#texto-nombre",
+                "#texto-apellidos",
+                "#sep-abajo",
+                "#texto-dedicatoria",
+            ],
+            {
+                opacity: 0,
+                y: 20,
+                duration: 1.2,
+                ease: "power2.out",
+                delay: 0.3,
+                stagger: 0.12,
+            },
+        );
+
+        const btnAudio = document.getElementById(
+            "btn-audio-control",
+        ) as HTMLButtonElement;
+        const iconoPlay = document.getElementById("icono-play");
+        const iconoPause = document.getElementById("icono-pause");
+
+        const intervalo = setInterval(() => {
+            const audio = (window as any).audioGlobal;
+            if (audio) {
+                clearInterval(intervalo);
+                gsap.to(btnAudio, {
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    onStart: () => {
+                        btnAudio.style.pointerEvents = "auto";
+                    },
+                });
+                iconoPlay?.classList.add("hidden");
+                iconoPause?.classList.remove("hidden");
+
+                btnAudio.addEventListener("click", () => {
+                    const audioActual = (window as any).audioGlobal;
+                    const reproduciendo = (window as any)
+                        .estaReproduciendoGlobal;
+                    if (!audioActual) return;
+                    if (reproduciendo) {
+                        audioActual.pause();
+                        (window as any).estaReproduciendoGlobal = false;
+                        iconoPause?.classList.add("hidden");
+                        iconoPlay?.classList.remove("hidden");
+                    } else {
+                        audioActual.play();
+                        (window as any).estaReproduciendoGlobal = true;
+                        iconoPlay?.classList.add("hidden");
+                        iconoPause?.classList.remove("hidden");
+                    }
+                    gsap.fromTo(
+                        btnAudio,
+                        { scale: 0.85 },
+                        { scale: 1, duration: 0.3, ease: "back.out(2)" },
+                    );
+                });
+            }
+        }, 300);
+    };
+
+    // Si no hay portada (ej. desarrollo directo), iniciar automáticamente
+    document.addEventListener("DOMContentLoaded", () => {
+        if (!document.getElementById("portada-sobre")) {
+            (window as any).iniciarAnimacionNombresFlores();
+        }
+    });
+</script>

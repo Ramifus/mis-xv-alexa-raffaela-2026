@@ -1,0 +1,44 @@
+---
+// src/pages/index.astro
+import Layout from "../layouts/Layout.astro";
+
+import Portada from "../components/Portada.astro";
+import NombresFlores from "../components/NombresFlores.astro";
+import Dedicatoria from "../components/Dedicatoria.astro";
+import Acodedicatoria from "../components/Acodedicatoria.astro";
+import NombresPadres from "../components/NombresPadres.astro";
+import NombresPadrinos from "../components/NombresPadrinos.astro";
+import Contador from "../components/Contador.astro";
+import Fecha from "../components/Fecha.astro";
+import Calendario from "../components/Calendario.astro";
+import Hora from "../components/Hora.astro";
+import Direccion from "../components/Direccion.astro";
+import Itinerario from "../components/Itinerario.astro";
+import CodigoVestimenta from "../components/CodigoVestimenta.astro";
+import Restriccion from "../components/Restriccion.astro";
+import Confirmar from "../components/Confirmar.astro";
+import Sugerencia from "../components/SugerenciaRegalo.astro";
+---
+
+<Layout title="Mis XV">
+    <!-- <Portada /> --> <!-- DEV: comentado para no tener que abrir el sobre cada vez. Descomentar al terminar. -->
+    <NombresFlores />
+    <NombresPadres />
+    <Contador />
+    <!-- <Dedicatoria /> -->
+    <!-- <Acodedicatoria /> -->
+    
+    <!-- <NombresPadrinos /> -->
+    
+    <Fecha />
+     <Direccion />
+     <CodigoVestimenta />
+   <Calendario />
+      <Hora />
+   
+    <Restriccion /> 
+    <!-- <Itinerario /> -->
+    <!-- <Sugerencia /> -->
+    
+    <!-- <Confirmar /> -->
+</Layout>

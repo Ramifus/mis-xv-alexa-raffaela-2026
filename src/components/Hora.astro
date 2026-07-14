@@ -1,0 +1,119 @@
+---
+// Hora.astro  (Confirma tu Asistencia)
+const mensaje =
+    "Me complace confirmar mi asistencia para los 15 años de Alexa Raffaela. Nos vemos el sábado 29 de septiembre, estaré sin falta";
+const texto = encodeURIComponent(mensaje);
+
+const linkPadre = `https://wa.me/59177940909?text=${texto}`;
+const linkMadre = `https://wa.me/59177414142?text=${texto}`;
+---
+
+<div
+    id="conf-contenedor"
+    class="relative w-full flex flex-col items-center justify-center text-center px-8 pt-2 pb-16"
+>
+    <!-- ROSA EN CÚPULA -->
+    <img
+        id="conf-rosa"
+        src="/imagenes/rosa2.png"
+        alt="Rosa"
+        class="w-[92px] h-auto select-none"
+        draggable="false"
+    />
+
+    <!-- SEPARADOR CON CORONA -->
+    <img
+        id="conf-separador"
+        src="/imagenes/separador2.png"
+        alt=""
+        class="w-[210px] h-auto mt-5 select-none"
+        draggable="false"
+    />
+
+    <!-- TÍTULO -->
+    <h2
+        id="conf-titulo"
+        class="m-0 mt-8 font-montigny not-italic text-[#e2ac30] text-[46px] leading-[1.15]"
+    >
+        Confirma tu Asistencia
+    </h2>
+
+    <!-- TEXTO -->
+    <p
+        id="conf-texto"
+        class="m-0 mt-6 max-w-[300px] font-cormorant not-italic text-[#f1e9d6] text-[17px] leading-[1.7]"
+    >
+        Será de mucha alegría contar con tu presencia en este día tan importante
+        para mí.
+    </p>
+
+    <!-- BOTONES CONFIRMAR (WhatsApp) -->
+    <div
+        id="conf-botones"
+        class="mt-9 flex flex-col items-center gap-3 w-full max-w-[300px]"
+    >
+        <a
+            href={linkPadre}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full inline-flex items-center justify-center rounded-full
+                   bg-[#ead197] px-10 py-3 transition-opacity hover:opacity-90"
+        >
+            <span
+                class="font-cormorant not-italic uppercase text-[#16304d] text-[15px]"
+            >
+                Confirmar con el Padre
+            </span>
+        </a>
+
+        <a
+            href={linkMadre}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full inline-flex items-center justify-center rounded-full
+                   bg-[#ead197] px-10 py-3 transition-opacity hover:opacity-90"
+        >
+            <span
+                class="font-cormorant not-italic uppercase text-[#16304d] text-[15px]"
+            >
+                Confirmar con la Madre
+            </span>
+        </a>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initConf() {
+        const contenedor = document.getElementById("conf-contenedor");
+        if (!contenedor) return;
+
+        gsap.from(
+            [
+                "#conf-rosa",
+                "#conf-separador",
+                "#conf-titulo",
+                "#conf-texto",
+                "#conf-botones",
+            ],
+            {
+                opacity: 0,
+                y: 25,
+                duration: 1,
+                ease: "power3.out",
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: contenedor,
+                    start: "top 85%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+    }
+
+    document.addEventListener("DOMContentLoaded", initConf);
+    document.addEventListener("astro:page-load", initConf);
+</script>

@@ -1,0 +1,73 @@
+---
+// CodigoVestimenta.astro
+---
+
+<div
+    id="cv-contenedor"
+    class="relative w-full flex flex-col items-center justify-center text-center px-6 pt-2 pb-14"
+>
+    <!-- CARD -->
+    <div
+        id="cv-card"
+        class="relative w-full max-w-[340px] mx-auto rounded-[26px] bg-[#ead197]
+               shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-8 py-10 flex flex-col items-center"
+    >
+        <!-- IMAGEN VESTIMENTA (teñida en azul marino) -->
+        <div
+            id="cv-imagen"
+            class="w-[110px] h-[120px] bg-[#16304d]"
+            style="-webkit-mask: url('/imagenes/vestimenta.png') center/contain no-repeat; mask: url('/imagenes/vestimenta.png') center/contain no-repeat;"
+        >
+        </div>
+
+        <!-- TÍTULO -->
+        <p
+            id="cv-titulo"
+            class="m-0 mt-4 font-montigny not-italic text-[#16304d] text-[42px] leading-[1.05]"
+        >
+            Código de Vestimenta
+        </p>
+
+        <!-- FORMAL -->
+        <p
+            id="cv-formal"
+            class="m-0 mt-5 font-cormorant not-italic font-bold uppercase text-[#16304d] text-[22px] tracking-[0.2em]"
+        >
+            Formal
+        </p>
+
+        <!-- RESERVA DE COLORES -->
+        <p
+            id="cv-reserva"
+            class="m-0 mt-3 font-cormorant not-italic text-[#16304d] text-[17px] leading-[1.6]"
+        >
+            Los colores rojo y dorado están reservados para la quinceañera.
+        </p>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initCV() {
+        const contenedor = document.getElementById("cv-contenedor");
+        if (!contenedor) return;
+
+        gsap.from("#cv-card", {
+            scale: 0.85,
+            opacity: 0,
+            duration: 1.1,
+            ease: "back.out(1.6)",
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            },
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initCV);
+    document.addEventListener("astro:page-load", initCV);
+</script>

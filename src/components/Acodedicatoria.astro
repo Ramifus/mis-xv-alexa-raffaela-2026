@@ -1,0 +1,118 @@
+---
+// Invitacion.astro
+---
+
+<div
+    id="acoded-contenedor"
+    class="relative w-full overflow-hidden flex items-center justify-center px-[24px] py-[40px]"
+>
+    <div
+        class="relative z-10 flex flex-col items-center justify-center text-center gap-6 max-w-[400px]"
+    >
+        <!-- LÁMPARA -->
+        <img
+            id="acoded-lampara"
+            src="/imagenes/lampara.png"
+            alt="Lámpara mágica"
+            class="w-[100px] h-auto pointer-events-none select-none"
+        />
+
+        <!-- TEXTO SUPERIOR -->
+        <p
+            id="acoded-texto-sup"
+            class="font-crimson text-lg uppercase text-[#07c4c7] leading-relaxed m-0"
+        >
+            TENEMOS EL AGRADO DE INVITARTE A CELEBRAR LOS 15 AÑOS DE NUESTRA
+            QUERIDA HIJA
+        </p>
+
+        <!-- NOMBRE -->
+        <h1
+            id="acoded-nombre"
+            class="font-great-vibes text-[52px] text-[#c8960c] leading-[1.1] m-0"
+        >
+            Camila Amaral
+        </h1>
+
+        <!-- TEXTO INFERIOR -->
+        <p
+            id="acoded-texto-inf"
+            class="font-crimson text-lg uppercase text-[#07c4c7] leading-relaxed m-0"
+        >
+            ACOMPÁÑANOS EN ESTE DÍA TAN ESPECIAL, LLENO DE AMOR Y ALEGRÍA
+        </p>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initAcodedicatoria() {
+        const contenedor = document.getElementById("acoded-contenedor");
+        if (!contenedor) return;
+
+        const lampara = document.getElementById("acoded-lampara");
+        const textoSup = document.getElementById("acoded-texto-sup");
+        const nombre = document.getElementById("acoded-nombre");
+        const textoInf = document.getElementById("acoded-texto-inf");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            },
+        });
+
+        tl.from(lampara, {
+            y: -40,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            onComplete: () => {
+                gsap.to(lampara, {
+                    y: -10,
+                    duration: 2.5,
+                    ease: "sine.inOut",
+                    repeat: -1,
+                    yoyo: true,
+                });
+            },
+        })
+            .from(
+                textoSup,
+                {
+                    y: 20,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                },
+                "-=0.8",
+            )
+            .from(
+                nombre,
+                {
+                    scale: 0.8,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: "back.out(1.7)",
+                },
+                "-=0.7",
+            )
+            .from(
+                textoInf,
+                {
+                    y: 20,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                },
+                "-=0.9",
+            );
+    }
+
+    document.addEventListener("DOMContentLoaded", initAcodedicatoria);
+    document.addEventListener("astro:page-load", initAcodedicatoria);
+</script>

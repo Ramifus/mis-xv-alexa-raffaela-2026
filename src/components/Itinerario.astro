@@ -1,0 +1,275 @@
+---
+// Itinerario.astro  (Trivia XV Años)
+---
+
+<div
+    id="trivia-contenedor"
+    data-entrada
+    class="relative w-full overflow-hidden flex items-center justify-center px-5 py-10"
+>
+    <div
+        class="relative w-full max-w-[360px] bg-white/95 backdrop-blur-sm rounded-[22px]
+               shadow-[0_18px_45px_rgba(40,70,110,0.28)] border border-[#5182ab]/25
+               px-7 py-9 text-center overflow-hidden"
+    >
+        <!-- borde interior decorativo -->
+        <span
+            class="pointer-events-none absolute inset-[10px] rounded-[16px] border border-[#5182ab]/20"
+        ></span>
+
+        <div class="relative">
+            <!-- TÍTULO -->
+            <h2 class="m-0 font-great-vibes text-[#5182ab] text-[46px] leading-none">
+                Trivias
+            </h2>
+            <p class="m-0 font-crimson text-[#5182ab] text-[13px] leading-[1.5] mt-2 opacity-80">
+                Responde las preguntas y descubre cuánto sabes sobre mí
+            </p>
+
+            <!-- SEPARADOR -->
+            <img
+                src="/imagenes/separador.png"
+                alt=""
+                class="pointer-events-none select-none w-[120px] h-auto mx-auto my-5 opacity-90"
+            />
+
+            <!-- QUIZ -->
+            <div id="trivia-quiz">
+                <p
+                    id="trivia-progreso"
+                    class="m-0 font-crimson uppercase text-[#5182ab] text-[11px] tracking-[0.2em] opacity-70"
+                >
+                    Pregunta 1 de 5
+                </p>
+
+                <!-- barra de progreso -->
+                <div class="w-full h-[6px] rounded-full bg-[#5182ab]/15 mt-2 overflow-hidden">
+                    <div
+                        id="trivia-barra"
+                        class="h-full bg-[#5182ab] rounded-full transition-all duration-500"
+                        style="width: 20%;"
+                    ></div>
+                </div>
+
+                <p
+                    id="trivia-pregunta"
+                    class="m-0 font-crimson font-bold text-[#5182ab] text-[18px] leading-[1.4] mt-5 min-h-[50px] flex items-center justify-center"
+                >
+                    —
+                </p>
+
+                <div id="trivia-opciones" class="flex flex-col gap-2.5 mt-3"></div>
+            </div>
+
+            <!-- RESULTADO -->
+            <div id="trivia-resultado" class="hidden">
+                <p class="m-0 font-great-vibes text-[#5182ab] text-[40px] leading-none mt-2">
+                    ¡Terminaste!
+                </p>
+                <p
+                    id="trivia-score"
+                    class="m-0 font-crimson text-[#5182ab] text-[17px] leading-[1.6] mt-3"
+                ></p>
+                <button
+                    id="trivia-reiniciar"
+                    class="mt-6 inline-flex items-center gap-2 bg-gradient-to-b from-[#5b8fbd] to-[#3f6f9c]
+                           text-white font-crimson uppercase tracking-[0.15em] text-[13px]
+                           px-7 py-3 rounded-full shadow-[0_8px_20px_rgba(63,111,156,0.4)]
+                           hover:-translate-y-0.5 transition-all duration-300"
+                >
+                    Volver a jugar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    type Pregunta = { pregunta: string; opciones: string[]; correcta: number };
+
+    const CANT_POR_RONDA = 5;
+
+    // ── BANCO DE 10 PREGUNTAS (cambia el texto por las reales) ──
+    const BANCO: Pregunta[] = [
+        {
+            pregunta: "¿Cuál es mi color favorito?",
+            opciones: ["Celeste", "Rosa", "Negro", "Verde"],
+            correcta: 0,
+        },
+        {
+            pregunta: "¿Cuál es mi comida favorita?",
+            opciones: ["Hamburguesa", "Pizza", "Sushi", "Ensalada"],
+            correcta: 1,
+        },
+        {
+            pregunta: "¿Cuál es mi pasatiempo favorito?",
+            opciones: ["Leer", "Cocinar", "Bailar", "Dibujar"],
+            correcta: 2,
+        },
+        {
+            pregunta: "¿Qué animal me gusta más?",
+            opciones: ["Los gatos", "Los perros", "Los conejos", "Las aves"],
+            correcta: 1,
+        },
+        {
+            pregunta: "¿Cuál es mi estación favorita?",
+            opciones: ["Invierno", "Otoño", "Primavera", "Verano"],
+            correcta: 3,
+        },
+        {
+            pregunta: "¿Cuál es mi postre favorito?",
+            opciones: ["Helado", "Cheesecake", "Brownie", "Flan"],
+            correcta: 0,
+        },
+        {
+            pregunta: "¿Cuál es mi película favorita?",
+            opciones: ["Titanic", "Frozen", "El Rey León", "Coco"],
+            correcta: 1,
+        },
+        {
+            pregunta: "¿Cuál es mi red social favorita?",
+            opciones: ["TikTok", "Instagram", "Facebook", "X"],
+            correcta: 1,
+        },
+        {
+            pregunta: "¿Cuál es mi bebida favorita?",
+            opciones: ["Jugo de naranja", "Limonada", "Chocolate", "Malteada"],
+            correcta: 3,
+        },
+        {
+            pregunta: "¿Cuál es mi flor favorita?",
+            opciones: ["Rosas", "Girasoles", "Tulipanes", "Margaritas"],
+            correcta: 1,
+        },
+    ];
+
+    // Mezcla aleatoria (Fisher–Yates)
+    function mezclar<T>(arr: T[]): T[] {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    // Arma una ronda: 5 preguntas al azar del banco, con opciones también mezcladas
+    function nuevaRonda(): Pregunta[] {
+        return mezclar(BANCO)
+            .slice(0, CANT_POR_RONDA)
+            .map((p) => {
+                const textoCorrecto = p.opciones[p.correcta];
+                const opciones = mezclar(p.opciones);
+                return {
+                    pregunta: p.pregunta,
+                    opciones,
+                    correcta: opciones.indexOf(textoCorrecto),
+                };
+            });
+    }
+
+    function initTrivia() {
+        const cont = document.getElementById("trivia-contenedor");
+        if (!cont) return;
+
+        const elQuiz = document.getElementById("trivia-quiz")!;
+        const elResultado = document.getElementById("trivia-resultado")!;
+        const elProgreso = document.getElementById("trivia-progreso")!;
+        const elBarra = document.getElementById("trivia-barra")!;
+        const elPregunta = document.getElementById("trivia-pregunta")!;
+        const elOpciones = document.getElementById("trivia-opciones")!;
+        const elScore = document.getElementById("trivia-score")!;
+        const btnReiniciar = document.getElementById("trivia-reiniciar")!;
+
+        let ronda: Pregunta[] = nuevaRonda();
+        let indice = 0;
+        let aciertos = 0;
+        let bloqueado = false;
+
+        const baseClase =
+            "w-full py-3 px-4 rounded-full border border-[#5182ab]/40 bg-[#5182ab]/5 " +
+            "text-[#5182ab] font-crimson text-[15px] transition-all duration-300 " +
+            "hover:bg-[#5182ab]/15 cursor-pointer";
+
+        function render() {
+            const p = ronda[indice];
+            bloqueado = false;
+
+            elProgreso.textContent = `Pregunta ${indice + 1} de ${ronda.length}`;
+            elBarra.style.width = `${((indice + 1) / ronda.length) * 100}%`;
+            elPregunta.textContent = p.pregunta;
+            elOpciones.innerHTML = "";
+
+            p.opciones.forEach((texto, i) => {
+                const btn = document.createElement("button");
+                btn.className = baseClase;
+                btn.textContent = texto;
+                btn.addEventListener("click", () => responder(i, btn));
+                elOpciones.appendChild(btn);
+            });
+        }
+
+        function responder(elegida: number, btn: HTMLButtonElement) {
+            if (bloqueado) return;
+            bloqueado = true;
+
+            const p = ronda[indice];
+            const botones = Array.from(
+                elOpciones.querySelectorAll("button"),
+            ) as HTMLButtonElement[];
+
+            botones.forEach((b, i) => {
+                b.style.pointerEvents = "none";
+                if (i === p.correcta) {
+                    b.className =
+                        baseClase +
+                        " !bg-[#e6f4ea] !border-[#3f9b5e] !text-[#2f7a48] font-bold";
+                } else if (i === elegida) {
+                    b.className =
+                        baseClase +
+                        " !bg-[#fbe9e9] !border-[#d16a6a] !text-[#b04a4a]";
+                } else {
+                    b.style.opacity = "0.5";
+                }
+            });
+
+            if (elegida === p.correcta) aciertos++;
+
+            setTimeout(() => {
+                indice++;
+                if (indice < ronda.length) {
+                    render();
+                } else {
+                    mostrarResultado();
+                }
+            }, 1100);
+        }
+
+        function mostrarResultado() {
+            elQuiz.classList.add("hidden");
+            elResultado.classList.remove("hidden");
+            let msg = "";
+            if (aciertos === ronda.length)
+                msg = "¡Perfecto! Me conoces muy bien 💙";
+            else if (aciertos >= 3) msg = "¡Muy bien! Me conoces bastante 😊";
+            else msg = "¡Gracias por jugar! Aún tenemos mucho por compartir 💫";
+
+            elScore.innerHTML = `Acertaste <b>${aciertos}</b> de <b>${ronda.length}</b><br/>${msg}`;
+        }
+
+        function reiniciar() {
+            ronda = nuevaRonda();
+            indice = 0;
+            aciertos = 0;
+            elResultado.classList.add("hidden");
+            elQuiz.classList.remove("hidden");
+            render();
+        }
+
+        btnReiniciar.addEventListener("click", reiniciar);
+        render();
+    }
+
+    document.addEventListener("DOMContentLoaded", initTrivia);
+    document.addEventListener("astro:page-load", initTrivia);
+</script>

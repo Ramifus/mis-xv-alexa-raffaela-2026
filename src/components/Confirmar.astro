@@ -1,0 +1,79 @@
+---
+// Confirmar.astro
+---
+
+<div
+    id="conf-contenedor"
+    data-entrada
+    class="relative w-full overflow-hidden flex items-center justify-center px-5 py-10"
+>
+    <div
+        class="relative w-full max-w-[360px] bg-white/95 backdrop-blur-sm rounded-[22px]
+               shadow-[0_18px_45px_rgba(40,70,110,0.28)] border border-[#5182ab]/25
+               px-8 py-10 text-center overflow-hidden"
+    >
+        <!-- borde interior decorativo -->
+        <span
+            class="pointer-events-none absolute inset-[10px] rounded-[16px] border border-[#5182ab]/20"
+        ></span>
+
+        <div class="relative flex flex-col items-center">
+            <!-- TÍTULO -->
+            <h2
+                class="m-0 font-great-vibes text-[#5182ab] text-[42px] leading-none"
+            >
+                Confirma tu asistencia
+            </h2>
+
+            <!-- SEPARADOR -->
+            <img
+                src="/imagenes/separador.png"
+                alt=""
+                class="pointer-events-none select-none w-[130px] h-auto mx-auto my-5 opacity-90"
+            />
+
+            <!-- MENSAJE -->
+            <p
+                class="m-0 font-crimson italic text-[#5182ab] text-[16px] leading-[1.75]"
+            >
+                Será un verdadero placer contar con tu presencia en este día tan
+                especial. Tu compañía significa mucho para nosotros.
+            </p>
+
+            <!-- BOTÓN ELEGANTE -->
+            <a
+                id="conf-boton"
+                href="https://wa.link/dzqoak"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group mt-7 inline-flex items-center gap-2.5
+                       bg-gradient-to-b from-[#5b8fbd] to-[#3f6f9c] text-white
+                       font-crimson uppercase tracking-[0.18em] text-[14px]
+                       px-8 py-3.5 rounded-full
+                       shadow-[0_8px_22px_rgba(63,111,156,0.45)]
+                       hover:shadow-[0_12px_28px_rgba(63,111,156,0.6)] hover:-translate-y-0.5
+                       transition-all duration-300"
+            >
+                <svg
+                    class="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.16c-.25.7-1.44 1.33-1.99 1.38-.53.05-1.02.24-3.44-.72-2.9-1.14-4.75-4.1-4.9-4.29-.14-.19-1.17-1.56-1.17-2.98s.74-2.11 1-2.4c.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.42-.07.65.5.25.6.85 2.07.92 2.22.07.15.12.32.02.51-.1.19-.15.31-.3.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.29.15.46.12.63-.07.17-.19.73-.85.92-1.14.19-.29.39-.24.65-.15.26.1 1.67.79 1.96.93.29.15.48.22.55.34.07.12.07.72-.18 1.42z"
+                    ></path>
+                </svg>
+                Confirmar asistencia
+            </a>
+
+            <!-- TE ESPERAMOS -->
+            <p
+                id="conf-esperamos"
+                class="m-0 font-great-vibes text-[#5182ab] text-[32px] mt-5"
+            >
+                ¡Te esperamos!
+            </p>
+        </div>
+    </div>
+</div>

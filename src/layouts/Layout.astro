@@ -1,0 +1,219 @@
+---
+// src/layouts/Layout.astro
+import "../styles/global.css";
+export interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="m-0 p-0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light only" />
+    <link rel="icon" type="image/png" href="/imagenes/corona.png" />
+    <link rel="shortcut icon" type="image/png" href="/imagenes/corona.png" />
+    <link rel="apple-touch-icon" href="/imagenes/corona.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Crimson+Text:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Crimson+Text:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* FORZAR MODO CLARO - DESHABILITAR MODO OSCURO */
+      :root {
+        color-scheme: light only;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color-scheme: light only;
+      }
+
+      html {
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        color-scheme: light only;
+        background-color: transparent;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background-color: transparent;
+        color-scheme: light only;
+        position: relative;
+      }
+
+      /* Textura de fondo con opacidad */
+      @keyframes fondoZoom {
+        0%, 100% { transform: scale(1); }
+        50%      { transform: scale(1.1); }
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("/imagenes/fondoverde.png");
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 1;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      main {
+        background: transparent !important;
+      }
+
+      /* Prevenir cualquier cambio de color por modo oscuro */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: light only !important;
+        }
+
+        html,
+        body {
+          background-color: transparent !important;
+          color: inherit !important;
+        }
+
+        * {
+          color-scheme: light only !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen m-0 p-0">
+    <!-- SILUETA CENTRAL FIJA (decoración de fondo) -->
+    <img
+      id="silueta-fondo"
+      src="/imagenes/silueta.png"
+      alt=""
+      class="select-none"
+      style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);height:48vh;width:auto;opacity:0.42;z-index:0;pointer-events:none;"
+    />
+
+    <main class="m-0 p-0 overflow-x-hidden" style="position:relative;z-index:1;">
+      <slot />
+    </main>
+
+    <!-- FLORES DECORATIVAS EN LAS 4 ESQUINAS (marco global) -->
+    <div id="flores-marco" style="position:fixed;inset:0;z-index:50;pointer-events:none;">
+      <!-- Arriba izquierda -->
+      <div class="flor-esquina" style="position:absolute;top:0;left:0;width:38%;">
+        <img src="/imagenes/floresrojo.png" alt="" class="select-none" style="display:block;width:100%;height:auto;" />
+      </div>
+      <!-- Arriba derecha -->
+      <div class="flor-esquina" style="position:absolute;top:0;right:0;width:38%;">
+        <img src="/imagenes/floresrojo.png" alt="" class="select-none" style="display:block;width:100%;height:auto;transform:scaleX(-1);" />
+      </div>
+      <!-- Abajo izquierda -->
+      <div class="flor-esquina" style="position:absolute;bottom:0;left:0;width:38%;">
+        <img src="/imagenes/floresrojo.png" alt="" class="select-none" style="display:block;width:100%;height:auto;transform:scaleY(-1);" />
+      </div>
+      <!-- Abajo derecha -->
+      <div class="flor-esquina" style="position:absolute;bottom:0;right:0;width:38%;">
+        <img src="/imagenes/floresrojo.png" alt="" class="select-none" style="display:block;width:100%;height:auto;transform:rotate(180deg);" />
+      </div>
+    </div>
+
+    <!-- ANIMACIÓN DE ENTRADA DE LAS FLORES -->
+    <script>
+      import { gsap } from "gsap";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const flores = gsap.utils.toArray<HTMLElement>(".flor-esquina");
+        // Cada flor entra desde su propia esquina, muy suave y delicada
+        const offsets = [
+          { x: -35, y: -25 }, // arriba izquierda
+          { x: 35, y: -25 },  // arriba derecha
+          { x: -35, y: 25 },  // abajo izquierda
+          { x: 35, y: 25 },   // abajo derecha
+        ];
+        flores.forEach((flor, i) => {
+          gsap.from(flor, {
+            opacity: 0,
+            x: offsets[i].x,
+            y: offsets[i].y,
+            scale: 0.94,
+            transformOrigin: "center center",
+            duration: 2.6,
+            ease: "sine.out",
+            delay: 0.6 + i * 0.25,
+          });
+        });
+      });
+    </script>
+
+    <!-- ANIMACIONES DE ENTRADA GLOBALES -->
+    <script>
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Todos los triggers recalculan posiciones cuando se llama refresh()
+      ScrollTrigger.defaults({ invalidateOnRefresh: true });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("[data-entrada]").forEach((el) => {
+          gsap.set(el, { opacity: 0, y: 50, scale: 0.97 });
+
+          ScrollTrigger.create({
+            trigger: el,
+            start: "top 98%",
+            onEnter: () => {
+              gsap.to(el, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 1,
+                ease: "power3.out",
+              });
+            },
+            onLeaveBack: () => {
+              gsap.set(el, { opacity: 0, y: 50, scale: 0.97 });
+            },
+          });
+        });
+      });
+
+      // Recalcula todas las posiciones cuando las imágenes ya cargaron.
+      // En móvil DOMContentLoaded dispara antes de cargar imágenes,
+      // dejando los trigger positions incorrectos.
+      window.addEventListener("load", () => {
+        setTimeout(() => ScrollTrigger.refresh(), 200);
+      });
+    </script>
+  </body>
+</html>

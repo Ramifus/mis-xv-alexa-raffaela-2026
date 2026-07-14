@@ -1,0 +1,73 @@
+---
+// Calendario.astro  (Compartir fotos)
+const linkFotos = "#";
+---
+
+<div
+    id="fotos-contenedor"
+    class="relative w-full flex flex-col items-center justify-center text-center px-6 pt-2 pb-14"
+>
+    <!-- CARD -->
+    <div
+        id="fotos-card"
+        class="relative w-full max-w-[340px] mx-auto rounded-[26px] bg-[#ead197]
+               shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-8 py-10 flex flex-col items-center"
+    >
+        <!-- IMAGEN CÁMARA (teñida en azul marino) -->
+        <div
+            id="fotos-imagen"
+            class="w-[110px] h-[95px] bg-[#16304d]"
+            style="-webkit-mask: url('/imagenes/camara.png') center/contain no-repeat; mask: url('/imagenes/camara.png') center/contain no-repeat;"
+        >
+        </div>
+
+        <!-- TEXTO -->
+        <p
+            id="fotos-texto"
+            class="m-0 mt-6 font-cormorant not-italic text-[#16304d] text-[18px] leading-[1.7]"
+        >
+            Te invito a compartir las fotos de mis XV años para revivir juntos
+            este lindo momento.
+        </p>
+
+        <!-- BOTÓN COMPARTIR FOTOS -->
+        <a
+            id="fotos-boton"
+            href={linkFotos}
+            class="mt-8 inline-flex items-center justify-center rounded-full
+                   bg-[#16304d] px-9 py-3 transition-opacity hover:opacity-90"
+        >
+            <span
+                class="font-cormorant not-italic uppercase text-[#ead197] text-[13px] tracking-[0.22em]"
+            >
+                Compartir fotos
+            </span>
+        </a>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initFotos() {
+        const contenedor = document.getElementById("fotos-contenedor");
+        if (!contenedor) return;
+
+        gsap.from("#fotos-card", {
+            scale: 0.85,
+            opacity: 0,
+            duration: 1.1,
+            ease: "back.out(1.6)",
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            },
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initFotos);
+    document.addEventListener("astro:page-load", initFotos);
+</script>
