@@ -129,7 +129,7 @@ const { title } = Astro.props;
     </main>
 
     <!-- FLORES DECORATIVAS EN LAS 4 ESQUINAS (marco global) -->
-    <div id="flores-marco" style="position:fixed;inset:0;z-index:50;pointer-events:none;">
+    <div id="flores-marco" style="position:fixed;inset:0;z-index:50;pointer-events:none;display:none;">
       <!-- Arriba izquierda -->
       <div class="flor-esquina" style="position:absolute;top:0;left:0;width:38%;">
         <img src="/imagenes/floresrojo.png" alt="" class="select-none" style="display:block;width:100%;height:auto;" />
@@ -153,6 +153,13 @@ const { title } = Astro.props;
       import { gsap } from "gsap";
 
       document.addEventListener("DOMContentLoaded", () => {
+        // Si hay Portada (sobre), el marco se mantiene oculto y la Portada
+        // lo revela al abrir. Si no hay Portada, se muestra y anima aquí.
+        const marco = document.getElementById("flores-marco");
+        const hayPortada = document.getElementById("portada-sobre");
+        if (hayPortada) return;
+        if (marco) marco.style.display = "block";
+
         const flores = gsap.utils.toArray<HTMLElement>(".flor-esquina");
         // Cada flor entra desde su propia esquina, muy suave y delicada
         const offsets = [
