@@ -9,7 +9,7 @@ const { nombre, pase } = Astro.props;
 
 <section
     id="portada-sobre"
-    class="fixed inset-0 z-50 w-full h-full overflow-hidden bg-white"
+    class="fixed inset-0 z-50 w-full h-full overflow-hidden bg-[#0f2a45]"
 >
     <!-- SOBRE A PANTALLA COMPLETA -->
     <img
@@ -58,6 +58,10 @@ const { nombre, pase } = Astro.props;
 
         const portada = document.getElementById("portada-sobre")!;
         const btnSobre = document.getElementById("btn-sobre")!;
+
+        // Ocultar las flores de las esquinas mientras se ve la portada
+        const floresMarco = document.getElementById("flores-marco");
+        if (floresMarco) floresMarco.style.display = "none";
 
         // ── ANIMACIÓN DE ENTRADA (todo al mismo tiempo) ──
         const tl = gsap.timeline();
@@ -122,6 +126,18 @@ const { nombre, pase } = Astro.props;
                 html.classList.remove("lock-scroll");
                 body.classList.remove("lock-scroll");
                 portada.remove();
+
+                // Mostrar las flores de las esquinas con una entrada suave
+                if (floresMarco) {
+                    floresMarco.style.display = "block";
+                    gsap.from(floresMarco.querySelectorAll(".flor-esquina"), {
+                        opacity: 0,
+                        scale: 0.94,
+                        duration: 1.8,
+                        ease: "sine.out",
+                        stagger: 0.2,
+                    });
+                }
                 const nombresFlores = document.getElementById("nombres-flores");
                 if (nombresFlores) {
                     nombresFlores.style.display = "block";
