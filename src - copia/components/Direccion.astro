@@ -1,0 +1,97 @@
+---
+// Direccion.astro  (Recepción / Ubicación)
+// Link del botón de ubicación (reemplazar por el real cuando lo tengan)
+const linkUbicacion = "#";
+---
+
+<div
+    id="direccion-contenedor"
+    class="relative w-full flex flex-col items-center justify-center text-center px-6 pt-2 pb-14"
+>
+    <!-- CARD -->
+    <div
+        id="direccion-card"
+        class="relative w-full max-w-[340px] mx-auto rounded-[26px] bg-[#ffc065]
+               border border-[#16304d]/25
+               shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-8 py-10 flex flex-col items-center"
+    >
+        <!-- IMAGEN RECEPCIÓN (teñida en azul marino) -->
+        <div
+            id="direccion-imagen"
+            class="w-[120px] h-[150px] bg-[#16304d]"
+            style="-webkit-mask: url('/imagenes/recepcion.png') center/contain no-repeat; mask: url('/imagenes/recepcion.png') center/contain no-repeat;"
+        >
+        </div>
+
+        <!-- RECEPCIÓN SOCIAL -->
+        <p
+            id="direccion-subtitulo"
+            class="m-0 mt-4 font-romantic text-[#16304d] text-[44px] leading-none"
+        >
+            Recepción Social
+        </p>
+
+        <!-- TÍTULO (nombre del lugar) -->
+        <p
+            id="direccion-titulo"
+            class="m-0 mt-5 font-cormorant not-italic font-semibold text-[#16304d] text-[21px] leading-[1.25]"
+        >
+            El Portal – Centro de Convenciones y Eventos “Jardines”
+        </p>
+
+        <!-- DIRECCIÓN -->
+        <p
+            id="direccion-texto"
+            class="m-0 mt-3 font-cormorant not-italic text-[#16304d]/90 text-[18px] leading-[1.55]"
+        >
+            Av. Ricardo Jaimes Freyre Nº 1929, esquina Parque Lincoln
+        </p>
+
+        <!-- HORA -->
+        <p
+            id="direccion-hora"
+            class="m-0 mt-5 font-cormorant not-italic font-bold uppercase text-[#16304d] text-[22px] tracking-[0.08em]"
+        >
+            18:00 horas
+        </p>
+
+        <!-- BOTÓN -->
+        <a
+            id="direccion-boton"
+            href={linkUbicacion}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-7 inline-flex items-center justify-center rounded-full bg-[#16304d]
+                   text-[#ffc065] font-cormorant not-italic uppercase font-semibold text-[13px] tracking-[0.18em]
+                   px-7 py-3 transition-transform duration-300 hover:scale-105"
+        >
+            Ver ubicación
+        </a>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function setupDireccion() {
+        const contenedor = document.getElementById("direccion-contenedor");
+        if (!contenedor) return;
+
+        gsap.from("#direccion-card", {
+            scale: 0.85,
+            opacity: 0,
+            duration: 1.1,
+            ease: "back.out(1.6)",
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            },
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", setupDireccion);
+    document.addEventListener("astro:page-load", setupDireccion);
+</script>

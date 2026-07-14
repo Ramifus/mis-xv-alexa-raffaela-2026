@@ -1,0 +1,159 @@
+---
+// Hora.astro  (Confirma tu Asistencia)
+const mensaje =
+    "Me complace confirmar mi asistencia para los 15 años de Alexa Raffaela. Nos vemos el sábado 29 de septiembre, estaré sin falta";
+const texto = encodeURIComponent(mensaje);
+
+const linkPadre = `https://wa.me/59177940909?text=${texto}`;
+const linkMadre = `https://wa.me/59177414142?text=${texto}`;
+---
+
+<div
+    id="conf-contenedor"
+    class="relative w-full flex flex-col items-center justify-center text-center px-8 pt-2 pb-4"
+>
+    <!-- ROSA EN CÚPULA -->
+    <img
+        id="conf-rosa"
+        src="/imagenes/rosa2.png"
+        alt="Rosa"
+        class="w-[92px] h-auto select-none"
+        draggable="false"
+    />
+
+    <!-- SEPARADOR CON CORONA -->
+    <img
+        id="conf-separador"
+        src="/imagenes/separador2.png"
+        alt=""
+        class="w-[210px] h-auto mt-5 select-none"
+        draggable="false"
+    />
+
+    <!-- TÍTULO -->
+    <h2
+        id="conf-titulo"
+        class="m-0 mt-8 font-romantic text-[#ffc065] text-[clamp(2.2rem,10vw,2.9rem)] leading-[1.5]"
+    >
+        Confirma tu Asistencia
+    </h2>
+
+    <!-- TEXTO -->
+    <p
+        id="conf-texto"
+        class="m-0 mt-6 max-w-[300px] font-cormorant not-italic text-[#f1e9d6] text-[17px] leading-[1.7]"
+    >
+        Será de mucha alegría contar con tu presencia en este día tan importante
+        para mí.
+    </p>
+
+    <!-- INDICACIÓN -->
+    <p
+        id="conf-indicacion"
+        class="m-0 mt-8 font-cormorant not-italic font-semibold uppercase text-[#ffc065] text-[14px] tracking-[0.12em] max-w-[300px]"
+    >
+        Haz clic en el botón para confirmar tu asistencia
+    </p>
+
+    <!-- BOTONES CONFIRMAR (WhatsApp) -->
+    <div
+        id="conf-botones"
+        class="mt-6 flex items-start justify-center gap-6"
+    >
+        <!-- PAPÁ -->
+        <div class="flex flex-col items-center gap-2">
+            <span
+                class="font-cormorant not-italic text-[#ffc065] text-[17px]"
+            >
+                Papá
+            </span>
+            <a
+                href={linkPadre}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center rounded-lg
+                       bg-[#ffc065] px-6 py-2 transition-opacity hover:opacity-90"
+            >
+                <span
+                    class="font-crimson not-italic text-[#16304d] text-[20px] tabular-nums tracking-wide"
+                >
+                    77940909
+                </span>
+            </a>
+        </div>
+
+        <!-- MAMÁ -->
+        <div class="flex flex-col items-center gap-2">
+            <span
+                class="font-cormorant not-italic text-[#ffc065] text-[17px]"
+            >
+                Mamá
+            </span>
+            <a
+                href={linkMadre}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center rounded-lg
+                       bg-[#ffc065] px-6 py-2 transition-opacity hover:opacity-90"
+            >
+                <span
+                    class="font-crimson not-italic text-[#16304d] text-[20px] tabular-nums tracking-wide"
+                >
+                    77414142
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <!-- FECHA LÍMITE -->
+    <div id="conf-limite" class="mt-8">
+        <p
+            class="m-0 font-cormorant not-italic uppercase text-[#f1e9d6] text-[14px] tracking-[0.12em]"
+        >
+            Confirma tu asistencia antes del:
+        </p>
+        <p
+            class="m-0 mt-1 font-cormorant not-italic font-semibold text-[#ffc065] text-[22px]"
+        >
+            7 de Septiembre
+        </p>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initConf() {
+        const contenedor = document.getElementById("conf-contenedor");
+        if (!contenedor) return;
+
+        gsap.from(
+            [
+                "#conf-rosa",
+                "#conf-separador",
+                "#conf-titulo",
+                "#conf-texto",
+                "#conf-indicacion",
+                "#conf-botones",
+                "#conf-limite",
+            ],
+            {
+                opacity: 0,
+                y: 25,
+                duration: 1,
+                ease: "power3.out",
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: contenedor,
+                    start: "top 85%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+    }
+
+    document.addEventListener("DOMContentLoaded", initConf);
+    document.addEventListener("astro:page-load", initConf);
+</script>

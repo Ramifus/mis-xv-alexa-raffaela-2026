@@ -1,7 +1,7 @@
 ---
 // Direccion.astro  (Recepción / Ubicación)
 // Link del botón de ubicación (reemplazar por el real cuando lo tengan)
-const linkUbicacion = "#";
+const linkUbicacion = "https://maps.app.goo.gl/7h2TdWepnryqwrKz8";
 ---
 
 <div
@@ -11,7 +11,8 @@ const linkUbicacion = "#";
     <!-- CARD -->
     <div
         id="direccion-card"
-        class="relative w-full max-w-[340px] mx-auto rounded-[26px] bg-[#ead197]
+        class="relative w-full max-w-[340px] mx-auto rounded-[26px] bg-[#ffc065]
+               border border-[#16304d]/25
                shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-8 py-10 flex flex-col items-center"
     >
         <!-- IMAGEN RECEPCIÓN (teñida en azul marino) -->
@@ -25,7 +26,7 @@ const linkUbicacion = "#";
         <!-- RECEPCIÓN SOCIAL -->
         <p
             id="direccion-subtitulo"
-            class="m-0 mt-4 font-montigny not-italic text-[#16304d] text-[46px] leading-none"
+            class="m-0 mt-4 font-romantic text-[#16304d] text-[44px] leading-none"
         >
             Recepción Social
         </p>
@@ -41,7 +42,7 @@ const linkUbicacion = "#";
         <!-- DIRECCIÓN -->
         <p
             id="direccion-texto"
-            class="m-0 mt-3 font-cormorant not-italic text-[#16304d] text-[18px] leading-[1.55]"
+            class="m-0 mt-3 font-cormorant not-italic text-[#16304d]/90 text-[18px] leading-[1.55]"
         >
             Av. Ricardo Jaimes Freyre Nº 1929, esquina Parque Lincoln
         </p>
@@ -51,7 +52,7 @@ const linkUbicacion = "#";
             id="direccion-hora"
             class="m-0 mt-5 font-cormorant not-italic font-bold uppercase text-[#16304d] text-[22px] tracking-[0.08em]"
         >
-            19:00 horas
+            18:00 horas
         </p>
 
         <!-- BOTÓN -->
@@ -61,7 +62,7 @@ const linkUbicacion = "#";
             target="_blank"
             rel="noopener noreferrer"
             class="mt-7 inline-flex items-center justify-center rounded-full bg-[#16304d]
-                   text-[#ead197] font-cormorant not-italic uppercase text-[13px] tracking-[0.18em]
+                   text-[#ffc065] font-cormorant not-italic uppercase font-semibold text-[13px] tracking-[0.18em]
                    px-7 py-3 transition-transform duration-300 hover:scale-105"
         >
             Ver ubicación

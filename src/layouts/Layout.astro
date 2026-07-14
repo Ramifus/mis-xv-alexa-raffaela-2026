@@ -70,6 +70,12 @@ const { title } = Astro.props;
         position: relative;
       }
 
+      /* Titileo de estrellas */
+      @keyframes brillo {
+        0%, 100% { opacity: 0.15; transform: scale(0.85); }
+        50%      { opacity: 1;    transform: scale(1.15); }
+      }
+
       /* Textura de fondo con opacidad */
       @keyframes fondoZoom {
         0%, 100% { transform: scale(1); }
@@ -115,71 +121,33 @@ const { title } = Astro.props;
     </style>
   </head>
   <body class="min-h-screen m-0 p-0">
-    <!-- SILUETA CENTRAL FIJA (decoración de fondo) -->
-    <img
-      id="silueta-fondo"
-      src="/imagenes/silueta.png"
-      alt=""
-      class="select-none"
-      style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);height:48vh;width:auto;opacity:0.42;z-index:0;pointer-events:none;"
-    />
+    <!-- ESTRELLAS / BRILLOS (sobre fondoverde, detrás del contenido) -->
+    <div id="estrellas" style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;"></div>
 
     <main class="m-0 p-0 overflow-x-hidden" style="position:relative;z-index:1;">
       <slot />
     </main>
 
-    <!-- FLORES DECORATIVAS EN LAS 4 ESQUINAS (marco global) -->
-    <div id="flores-marco" style="position:fixed;inset:0;z-index:50;pointer-events:none;display:none;">
-      <!-- Arriba izquierda -->
-      <div class="flor-esquina" style="position:absolute;top:0;left:0;width:38%;">
-        <img src="/imagenes/floresrojo.png" alt="" class="select-none" style="display:block;width:100%;height:auto;" />
-      </div>
-      <!-- Arriba derecha -->
-      <div class="flor-esquina" style="position:absolute;top:0;right:0;width:38%;">
-        <img src="/imagenes/floresrojo.png" alt="" class="select-none" style="display:block;width:100%;height:auto;transform:scaleX(-1);" />
-      </div>
-      <!-- Abajo izquierda -->
-      <div class="flor-esquina" style="position:absolute;bottom:0;left:0;width:38%;">
-        <img src="/imagenes/floresrojo.png" alt="" class="select-none" style="display:block;width:100%;height:auto;transform:scaleY(-1);" />
-      </div>
-      <!-- Abajo derecha -->
-      <div class="flor-esquina" style="position:absolute;bottom:0;right:0;width:38%;">
-        <img src="/imagenes/floresrojo.png" alt="" class="select-none" style="display:block;width:100%;height:auto;transform:rotate(180deg);" />
-      </div>
-    </div>
-
-    <!-- ANIMACIÓN DE ENTRADA DE LAS FLORES -->
+    <!-- GENERADOR DE ESTRELLAS -->
     <script>
-      import { gsap } from "gsap";
-
       document.addEventListener("DOMContentLoaded", () => {
-        // Si hay Portada (sobre), el marco se mantiene oculto y la Portada
-        // lo revela al abrir. Si no hay Portada, se muestra y anima aquí.
-        const marco = document.getElementById("flores-marco");
-        const hayPortada = document.getElementById("portada-sobre");
-        if (hayPortada) return;
-        if (marco) marco.style.display = "block";
-
-        const flores = gsap.utils.toArray<HTMLElement>(".flor-esquina");
-        // Cada flor entra desde su propia esquina, muy suave y delicada
-        const offsets = [
-          { x: -35, y: -25 }, // arriba izquierda
-          { x: 35, y: -25 },  // arriba derecha
-          { x: -35, y: 25 },  // abajo izquierda
-          { x: 35, y: 25 },   // abajo derecha
-        ];
-        flores.forEach((flor, i) => {
-          gsap.from(flor, {
-            opacity: 0,
-            x: offsets[i].x,
-            y: offsets[i].y,
-            scale: 0.94,
-            transformOrigin: "center center",
-            duration: 2.6,
-            ease: "sine.out",
-            delay: 0.6 + i * 0.25,
-          });
-        });
+        const cont = document.getElementById("estrellas");
+        if (!cont) return;
+        const TOTAL = 60;
+        for (let i = 0; i < TOTAL; i++) {
+          const s = document.createElement("span");
+          const size = Math.random() * 2.5 + 1; // 1–3.5px
+          s.style.cssText =
+            "position:absolute;border-radius:9999px;background:#ffffff;" +
+            "left:" + Math.random() * 100 + "%;" +
+            "top:" + Math.random() * 100 + "%;" +
+            "width:" + size + "px;height:" + size + "px;" +
+            "opacity:" + (Math.random() * 0.5 + 0.2) + ";" +
+            "box-shadow:0 0 " + (size * 2.5) + "px rgba(255,255,255,0.8);" +
+            "animation:brillo " + (Math.random() * 2.5 + 1.8) + "s ease-in-out " +
+            (Math.random() * 3) + "s infinite;";
+          cont.appendChild(s);
+        }
       });
     </script>
 

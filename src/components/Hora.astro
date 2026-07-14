@@ -10,8 +10,22 @@ const linkMadre = `https://wa.me/59177414142?text=${texto}`;
 
 <div
     id="conf-contenedor"
-    class="relative w-full flex flex-col items-center justify-center text-center px-8 pt-2 pb-16"
+    class="relative w-full overflow-hidden flex flex-col items-center justify-center text-center px-8 pt-2 pb-4"
 >
+    <!-- FLORES LATERALES -->
+    <img
+        src="/imagenes/florlateral.png"
+        alt=""
+        class="pointer-events-none select-none absolute left-0 top-1/2 -translate-y-1/2 w-[10%] max-w-[60px] h-auto z-0"
+    />
+    <img
+        src="/imagenes/florlateral.png"
+        alt=""
+        class="pointer-events-none select-none absolute right-0 top-1/2 -translate-y-1/2 w-[10%] max-w-[60px] h-auto z-0 scale-x-[-1]"
+    />
+
+    <!-- CONTENIDO -->
+    <div class="relative z-10 flex flex-col items-center w-full">
     <!-- ROSA EN CÚPULA -->
     <img
         id="conf-rosa"
@@ -33,7 +47,7 @@ const linkMadre = `https://wa.me/59177414142?text=${texto}`;
     <!-- TÍTULO -->
     <h2
         id="conf-titulo"
-        class="m-0 mt-8 font-montigny not-italic text-[#e2ac30] text-[46px] leading-[1.15]"
+        class="m-0 mt-8 font-romantic text-[#ffc065] text-[clamp(2.2rem,10vw,2.9rem)] leading-[1.5]"
     >
         Confirma tu Asistencia
     </h2>
@@ -47,38 +61,77 @@ const linkMadre = `https://wa.me/59177414142?text=${texto}`;
         para mí.
     </p>
 
+    <!-- INDICACIÓN -->
+    <p
+        id="conf-indicacion"
+        class="m-0 mt-8 font-cormorant not-italic font-semibold uppercase text-[#ffc065] text-[14px] tracking-[0.12em] max-w-[300px]"
+    >
+        Haz clic en el botón para confirmar tu asistencia
+    </p>
+
     <!-- BOTONES CONFIRMAR (WhatsApp) -->
     <div
         id="conf-botones"
-        class="mt-9 flex flex-col items-center gap-3 w-full max-w-[300px]"
+        class="mt-6 flex items-start justify-center gap-6"
     >
-        <a
-            href={linkPadre}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-full inline-flex items-center justify-center rounded-full
-                   bg-[#ead197] px-10 py-3 transition-opacity hover:opacity-90"
-        >
+        <!-- PAPÁ -->
+        <div class="flex flex-col items-center gap-2">
             <span
-                class="font-cormorant not-italic uppercase text-[#16304d] text-[15px]"
+                class="font-cormorant not-italic text-[#ffc065] text-[17px]"
             >
-                Confirmar con el Padre
+                Papá
             </span>
-        </a>
+            <a
+                href={linkPadre}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center rounded-lg
+                       bg-[#ffc065] px-6 py-2 transition-opacity hover:opacity-90"
+            >
+                <span
+                    class="font-crimson not-italic text-[#16304d] text-[20px] tabular-nums tracking-wide"
+                >
+                    77940909
+                </span>
+            </a>
+        </div>
 
-        <a
-            href={linkMadre}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-full inline-flex items-center justify-center rounded-full
-                   bg-[#ead197] px-10 py-3 transition-opacity hover:opacity-90"
-        >
+        <!-- MAMÁ -->
+        <div class="flex flex-col items-center gap-2">
             <span
-                class="font-cormorant not-italic uppercase text-[#16304d] text-[15px]"
+                class="font-cormorant not-italic text-[#ffc065] text-[17px]"
             >
-                Confirmar con la Madre
+                Mamá
             </span>
-        </a>
+            <a
+                href={linkMadre}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center rounded-lg
+                       bg-[#ffc065] px-6 py-2 transition-opacity hover:opacity-90"
+            >
+                <span
+                    class="font-crimson not-italic text-[#16304d] text-[20px] tabular-nums tracking-wide"
+                >
+                    77414142
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <!-- FECHA LÍMITE -->
+    <div id="conf-limite" class="mt-8">
+        <p
+            class="m-0 font-cormorant not-italic uppercase text-[#f1e9d6] text-[14px] tracking-[0.12em]"
+        >
+            Confirma tu asistencia antes del:
+        </p>
+        <p
+            class="m-0 mt-1 font-cormorant not-italic font-semibold text-[#ffc065] text-[22px]"
+        >
+            7 de Septiembre
+        </p>
+    </div>
     </div>
 </div>
 
@@ -97,7 +150,9 @@ const linkMadre = `https://wa.me/59177414142?text=${texto}`;
                 "#conf-separador",
                 "#conf-titulo",
                 "#conf-texto",
+                "#conf-indicacion",
                 "#conf-botones",
+                "#conf-limite",
             ],
             {
                 opacity: 0,
