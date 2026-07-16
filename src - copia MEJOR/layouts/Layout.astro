@@ -102,17 +102,6 @@ const { title } = Astro.props;
         background: transparent !important;
       }
 
-      /* ANTI-PARPADEO (FOUC): ocultar el contenido hasta que GSAP prepare
-         las animaciones de entrada; luego se revela suavemente. Así ningún
-         componente aparece un instante antes de ser ocultado por gsap.from(). */
-      main {
-        opacity: 0;
-      }
-      html.contenido-listo main {
-        opacity: 1;
-        transition: opacity 0.35s ease;
-      }
-
       /* Prevenir cualquier cambio de color por modo oscuro */
       @media (prefers-color-scheme: dark) {
         :root {
@@ -138,28 +127,6 @@ const { title } = Astro.props;
     <main class="m-0 p-0 overflow-x-hidden" style="position:relative;z-index:1;">
       <slot />
     </main>
-
-    <!-- REVELAR CONTENIDO (anti-parpadeo): se activa en el frame siguiente a
-         que corran los setups de animación, por lo que gsap.from() ya ocultó
-         los elementos y no se ve el flash inicial. -->
-    <script is:inline>
-      (function () {
-        function revelar() {
-          requestAnimationFrame(function () {
-            document.documentElement.classList.add("contenido-listo");
-          });
-        }
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", revelar);
-        } else {
-          revelar();
-        }
-        // Fallback de seguridad por si algo falla.
-        setTimeout(function () {
-          document.documentElement.classList.add("contenido-listo");
-        }, 1500);
-      })();
-    </script>
 
     <!-- GENERADOR DE ESTRELLAS -->
     <script>

@@ -6,10 +6,12 @@
     id="sug-contenedor"
     class="relative w-full flex flex-col items-center justify-center text-center px-6 pt-24 pb-14"
 >
+    <!-- WRAPPER (permite que las flores sobresalgan del card) -->
+    <div class="relative w-full max-w-[350px] mx-auto">
     <!-- CARD -->
     <div
         id="sug-card"
-        class="relative w-full max-w-[350px] mx-auto rounded-[26px] overflow-hidden
+        class="relative w-full rounded-[26px] overflow-hidden
                border border-[#ffc065]/40 shadow-[0_18px_45px_rgba(0,0,0,0.45)]"
     >
         <!-- FONDO AZUL -->
@@ -20,7 +22,7 @@
         />
 
         <!-- CONTENIDO -->
-        <div class="relative z-10 flex flex-col items-center px-8 py-10">
+        <div class="relative z-10 flex flex-col items-center px-8 pt-24 pb-16">
             <!-- TÍTULO -->
             <h2
                 class="m-0 font-romantic text-[#ffc065] text-[clamp(2.4rem,11vw,3.2rem)] leading-[1.1]"
@@ -33,7 +35,9 @@
                 class="m-0 mt-5 font-cormorant not-italic text-[#f1e9d6] text-[17px] leading-[1.7] max-w-[290px]"
             >
                 Tu presencia será nuestro regalo más grande, pero si deseas
-                obsequiarme algo puede ser por QR.
+                obsequiarme algo puede ser por QR o lluvia de sobres (no te
+                preocupes por traer el tuyo, en recepción habrá suficientes para
+                todos).
             </p>
 
             <!-- QR -->
@@ -44,30 +48,32 @@
                     class="w-[210px] h-[210px] object-contain"
                 />
             </div>
-
-            <!-- DATOS DE CUENTA -->
-            <p
-                class="m-0 mt-6 font-cormorant not-italic uppercase text-[#ffc065] text-[13px] tracking-[0.15em]"
-            >
-                Nombre de la cuenta
-            </p>
-            <p
-                class="m-0 mt-1 font-cormorant not-italic text-[#f1e9d6] text-[18px] leading-[1.5]"
-            >
-                Gordillo Reynolds Alexa Raffaela
-            </p>
-
-            <p
-                class="m-0 mt-4 font-cormorant not-italic uppercase text-[#ffc065] text-[13px] tracking-[0.15em]"
-            >
-                Motivo
-            </p>
-            <p
-                class="m-0 mt-1 font-cormorant not-italic text-[#f1e9d6] text-[18px] leading-[1.5]"
-            >
-                Obsequio 15 años Alexa
-            </p>
         </div>
+    </div>
+
+    <!-- FLOR ESQUINA SUPERIOR DERECHA -->
+    <div
+        id="sug-flor-tr"
+        class="pointer-events-none absolute -top-5 -right-5 w-[42%] max-w-[150px] z-20"
+    >
+        <img
+            src="/imagenes/florcostado.png"
+            alt=""
+            class="select-none w-full h-auto scale-x-[-1]"
+        />
+    </div>
+
+    <!-- FLOR ESQUINA INFERIOR IZQUIERDA -->
+    <div
+        id="sug-flor-bl"
+        class="pointer-events-none absolute -bottom-5 -left-5 w-[42%] max-w-[150px] z-20"
+    >
+        <img
+            src="/imagenes/florcostado.png"
+            alt=""
+            class="select-none w-full h-auto scale-y-[-1]"
+        />
+    </div>
     </div>
 </div>
 
@@ -91,6 +97,44 @@
                 toggleActions: "play none none reset",
             },
         });
+
+        // Flor superior derecha: aparece suave desde la derecha
+        gsap.fromTo(
+            "#sug-flor-tr",
+            { opacity: 0, x: 32, scale: 0.94 },
+            {
+                opacity: 1,
+                x: 0,
+                scale: 1,
+                duration: 1.8,
+                delay: 0.4,
+                ease: "sine.out",
+                scrollTrigger: {
+                    trigger: contenedor,
+                    start: "top 85%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+
+        // Flor inferior izquierda: aparece suave desde la izquierda
+        gsap.fromTo(
+            "#sug-flor-bl",
+            { opacity: 0, x: -32, scale: 0.94 },
+            {
+                opacity: 1,
+                x: 0,
+                scale: 1,
+                duration: 1.8,
+                delay: 0.65,
+                ease: "sine.out",
+                scrollTrigger: {
+                    trigger: contenedor,
+                    start: "top 85%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
     }
 
     document.addEventListener("DOMContentLoaded", initSug);

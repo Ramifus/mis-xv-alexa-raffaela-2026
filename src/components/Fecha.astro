@@ -1,10 +1,25 @@
 ---
 // Fecha.astro  (Fecha del evento)
+
+// --- Calendario del mes del evento ---
+const anio = 2026;
+const mesIndex = 8; // 0 = Enero -> 8 = Septiembre
+const diaEvento = 29;
+
+const primerDiaSemana = new Date(anio, mesIndex, 1).getDay(); // 0 = Domingo
+const diasEnMes = new Date(anio, mesIndex + 1, 0).getDate();
+
+// Celdas del calendario: null para huecos previos, número para los días
+const celdas: (number | null)[] = [
+    ...Array(primerDiaSemana).fill(null),
+    ...Array.from({ length: diasEnMes }, (_, i) => i + 1),
+];
+
+const diasSemana = ["D", "L", "M", "M", "J", "V", "S"];
 ---
 
 <div
     id="fecha-contenedor"
-    data-entrada
     class="relative w-full overflow-hidden flex flex-col items-center justify-center text-center px-6 pt-2 pb-12"
 >
     <!-- FLORES LATERALES -->
@@ -45,13 +60,62 @@
         2026
     </p>
 
-    <!-- SILUETA -->
-    <img
-        src="/imagenes/silueta3.png"
-        alt=""
-        id="fecha-silueta"
-        class="w-[95px] h-auto mt-10 pointer-events-none select-none"
-    />
+    <!-- CALENDARIO -->
+    <div
+        id="fecha-calendario"
+        class="mt-10 w-full max-w-[300px] rounded-2xl border border-[#ffc065]/40 bg-white/[0.04] px-5 py-5 backdrop-blur-sm"
+    >
+        <!-- Encabezado mes -->
+        <p
+            class="m-0 mb-3 font-cormorant uppercase text-[#ffc065] text-[17px] tracking-[0.25em] text-center"
+        >
+            Septiembre
+        </p>
+
+        <!-- Días de la semana -->
+        <div class="grid grid-cols-7 gap-y-1">
+            {
+                diasSemana.map((d) => (
+                    <span class="font-sans text-[#ffc065]/70 text-[12px] tracking-wide text-center">
+                        {d}
+                    </span>
+                ))
+            }
+        </div>
+
+        <!-- Días del mes -->
+        <div class="grid grid-cols-7 gap-y-1 mt-1">
+            {
+                celdas.map((n) =>
+                    n === null ? (
+                        <span></span>
+                    ) : n === diaEvento ? (
+                        <span class="relative flex items-center justify-center aspect-square">
+                            <svg
+                                class="absolute left-1/2 top-1/2 w-[135%] h-[135%] -translate-x-1/2 -translate-y-[42%]"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    fill="#e23744"
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                                />
+                            </svg>
+                            <span
+                                class="relative z-10 font-sans font-bold text-white text-[13px] leading-none"
+                            >
+                                {n}
+                            </span>
+                        </span>
+                    ) : (
+                        <span class="flex items-center justify-center aspect-square font-sans text-[#f1e9d6] text-[13px]">
+                            {n}
+                        </span>
+                    ),
+                )
+            }
+        </div>
+    </div>
     </div>
 </div>
 
@@ -69,7 +133,7 @@
                 "#fecha-dia",
                 "#fecha-mes",
                 "#fecha-anio",
-                "#fecha-silueta",
+                "#fecha-calendario",
             ],
             {
                 opacity: 0,
