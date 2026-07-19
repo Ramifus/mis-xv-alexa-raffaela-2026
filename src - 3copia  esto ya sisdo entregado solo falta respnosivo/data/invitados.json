@@ -1,0 +1,627 @@
+[
+    {
+        "slug": "adrian-cabrera",
+        "nombre": "Adrian Cabrera",
+        "pase": 1
+    },
+    {
+        "slug": "richard-cabrera",
+        "nombre": "Richard Cabrera",
+        "pase": 1
+    },
+    {
+        "slug": "thiago-canaviri",
+        "nombre": "Thiago Canaviri",
+        "pase": 1
+    },
+    {
+        "slug": "vito-chaira",
+        "nombre": "Vito Chaira",
+        "pase": 1
+    },
+    {
+        "slug": "paula-collazos",
+        "nombre": "Paula Collazos",
+        "pase": 1
+    },
+    {
+        "slug": "natalia-condori",
+        "nombre": "Natalia Condori",
+        "pase": 1
+    },
+    {
+        "slug": "diego-cuellar",
+        "nombre": "Diego Cuellar",
+        "pase": 1
+    },
+    {
+        "slug": "santiago-fernandez",
+        "nombre": "Santiago Fernandez",
+        "pase": 1
+    },
+    {
+        "slug": "fabricio-flores",
+        "nombre": "Fabricio Flores",
+        "pase": 1
+    },
+    {
+        "slug": "nicole-gutierrez",
+        "nombre": "Nicole Gutierrez",
+        "pase": 1
+    },
+    {
+        "slug": "leonor-herbas",
+        "nombre": "Leonor Herbas",
+        "pase": 1
+    },
+    {
+        "slug": "derek-justiniano",
+        "nombre": "Derek Justiniano",
+        "pase": 1
+    },
+    {
+        "slug": "luciano-lino",
+        "nombre": "Luciano Lino",
+        "pase": 1
+    },
+    {
+        "slug": "deybit-liuca",
+        "nombre": "Deybit Liuca",
+        "pase": 1
+    },
+    {
+        "slug": "violeta-loayza",
+        "nombre": "Violeta Loayza",
+        "pase": 1
+    },
+    {
+        "slug": "laura-mamani",
+        "nombre": "Laura Mamani",
+        "pase": 1
+    },
+    {
+        "slug": "fabricio-molina",
+        "nombre": "Fabricio Molina",
+        "pase": 1
+    },
+    {
+        "slug": "matias-montecinos",
+        "nombre": "Matias Montecinos",
+        "pase": 1
+    },
+    {
+        "slug": "jhoana-ovando",
+        "nombre": "Jhoana Ovando",
+        "pase": 1
+    },
+    {
+        "slug": "kristel-ovando",
+        "nombre": "Kristel Ovando",
+        "pase": 1
+    },
+    {
+        "slug": "dara-pedraza",
+        "nombre": "Dara Pedraza",
+        "pase": 1
+    },
+    {
+        "slug": "lucas-pena",
+        "nombre": "Lucas Peña",
+        "pase": 1
+    },
+    {
+        "slug": "davinia-quinteros",
+        "nombre": "Davinia Quinteros",
+        "pase": 1
+    },
+    {
+        "slug": "erick-rada",
+        "nombre": "Erick Rada",
+        "pase": 1
+    },
+    {
+        "slug": "lucas-robles",
+        "nombre": "Lucas Robles",
+        "pase": 1
+    },
+    {
+        "slug": "valentina-rocabado",
+        "nombre": "Valentina Rocabado",
+        "pase": 1
+    },
+    {
+        "slug": "karol-rojas",
+        "nombre": "Karol Rojas",
+        "pase": 1
+    },
+    {
+        "slug": "charlotie-saucedo",
+        "nombre": "Charlotie Saucedo",
+        "pase": 1
+    },
+    {
+        "slug": "omar-silva",
+        "nombre": "Omar Silva",
+        "pase": 1
+    },
+    {
+        "slug": "luciana-suarez",
+        "nombre": "Luciana Suarez",
+        "pase": 1
+    },
+    {
+        "slug": "luciana-taboada",
+        "nombre": "Luciana Taboada",
+        "pase": 1
+    },
+    {
+        "slug": "rodrigo-vargas",
+        "nombre": "Rodrigo Vargas",
+        "pase": 1
+    },
+    {
+        "slug": "raiza-yerbales",
+        "nombre": "Raiza Yerbales",
+        "pase": 1
+    },
+    {
+        "slug": "flavia-herrera",
+        "nombre": "Flavia Herrera",
+        "pase": 1
+    },
+    {
+        "slug": "fernanda-polanco",
+        "nombre": "Fernanda Polanco",
+        "pase": 1
+    },
+    {
+        "slug": "camila-eysaguirre",
+        "nombre": "Camila Eysaguirre",
+        "pase": 1
+    },
+    {
+        "slug": "maite-soliz",
+        "nombre": "Maite Soliz",
+        "pase": 1
+    },
+    {
+        "slug": "maximo-herbas",
+        "nombre": "Maximo Herbas",
+        "pase": 1
+    },
+    {
+        "slug": "hanoli-illanes",
+        "nombre": "Hanoli Illanes",
+        "pase": 1
+    },
+    {
+        "slug": "gianina-tejerina",
+        "nombre": "Gianina Tejerina",
+        "pase": 1
+    },
+    {
+        "slug": "fabiana-medina",
+        "nombre": "Fabiana Medina",
+        "pase": 1
+    },
+    {
+        "slug": "gabriel-espiritu",
+        "nombre": "Gabriel Espiritu",
+        "pase": 1
+    },
+    {
+        "slug": "christopher-coll",
+        "nombre": "Christopher Coll",
+        "pase": 1
+    },
+    {
+        "slug": "rachel-rodriguez",
+        "nombre": "Rachel Rodriguez",
+        "pase": 1
+    },
+    {
+        "slug": "marla-matorra",
+        "nombre": "Marla Matorra",
+        "pase": 1
+    },
+    {
+        "slug": "claudia-rosales",
+        "nombre": "Claudia Rosales",
+        "pase": 1
+    },
+    {
+        "slug": "renata-paz",
+        "nombre": "Renata Paz",
+        "pase": 1
+    },
+    {
+        "slug": "abril-sanchez",
+        "nombre": "Abril Sanchez",
+        "pase": 1
+    },
+    {
+        "slug": "hanna-montecinos",
+        "nombre": "Hanna Montecinos",
+        "pase": 1
+    },
+    {
+        "slug": "fabian-arnez",
+        "nombre": "Fabiana Arnez",
+        "pase": 1
+    },
+    {
+        "slug": "maria-mafaile",
+        "nombre": "Maria Mafaile",
+        "pase": 1
+    },
+    {
+        "slug": "romeo-firpo",
+        "nombre": "Romeo Firpo",
+        "pase": 1
+    },
+    {
+        "slug": "hariel-civera-y-familia",
+        "nombre": "Hariel Civera Y Familia",
+        "pase": 4
+    },
+    {
+        "slug": "jose-mallea-y-sra",
+        "nombre": "Jose Mallea Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "wilber-rivero-y-sra",
+        "nombre": "Wilber Rivero Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "carmela-casas-e-hijo",
+        "nombre": "Carmela Casas E Hijo",
+        "pase": 2
+    },
+    {
+        "slug": "jose-manuel-casas-peducasse",
+        "nombre": "Jose Manuel Casas Peducasse",
+        "pase": 1
+    },
+    {
+        "slug": "marcelo-mallea-y-sra",
+        "nombre": "Marcelo Mallea Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "rolando-mallea-y-sra",
+        "nombre": "Rolando Mallea Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "brayan-alanes-y-sra",
+        "nombre": "Brayan Alanes Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "cesar-lanza-y-sra",
+        "nombre": "Cesar Lanza Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "gabriela-lanza-y-flia",
+        "nombre": "Gabriela Lanza Y Flia.",
+        "pase": 3
+    },
+    {
+        "slug": "julio-lanza-e-hijo",
+        "nombre": "Julio Lanza E Hijo",
+        "pase": 2
+    },
+    {
+        "slug": "leonardo-valdivia-y-sra",
+        "nombre": "Leonardo Valdivia Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "fernando-valdivia-y-sra",
+        "nombre": "Fernando Valdivia Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "brayan-valdivia-y-sra",
+        "nombre": "Brayan Valdivia Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "duxsam-suarez-y-sra",
+        "nombre": "Duxsam Suarez Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "enrique-valdivia-y-sra",
+        "nombre": "Enrique Valdivia Y Sra.",
+        "pase": 4
+    },
+    {
+        "slug": "levy-vaca-y-sra",
+        "nombre": "Levy Vaca Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "fermin-flores-y-sra",
+        "nombre": "Fermin Flores Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "anahi-juchani-e-hijo",
+        "nombre": "Anahi Juchani E Hijo",
+        "pase": 2
+    },
+    {
+        "slug": "nelson-maranon-y-sra",
+        "nombre": "Nelson Maranon Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "jose-robles-y-sra",
+        "nombre": "Jose Robles Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "vanesa-uzqueda",
+        "nombre": "Vanesa Uzqueda",
+        "pase": 1
+    },
+    {
+        "slug": "edwin-arandia-y-sra",
+        "nombre": "Edwin Arandia Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "gabriel-ortega-y-sra",
+        "nombre": "Gabriel Ortega Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "miriam-bustillos",
+        "nombre": "Miriam Bustillos",
+        "pase": 1
+    },
+    {
+        "slug": "jorge-carlos-herrera-y-sra",
+        "nombre": "Jorge Carlos Herrera Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "jorge-coll-y-sra",
+        "nombre": "Jorge Coll Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "javier-soliz-y-sra",
+        "nombre": "Javier Soliz Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "elvis-quispe-y-sra",
+        "nombre": "Elvis Quispe Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "ali-romero-y-sra",
+        "nombre": "Ali Romero Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "alex-romero-y-sra",
+        "nombre": "Alex Romero Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "freddy-vargas-y-sra",
+        "nombre": "Freddy Vargas Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "darwin-molina-y-sra",
+        "nombre": "Darwin Molina Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "jorge-nemer-y-sra",
+        "nombre": "Jorge Nemer Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "osmar-rivero-y-sra",
+        "nombre": "Osmar Rivero Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "samuel-rivero",
+        "nombre": "Samuel Rivero",
+        "pase": 1
+    },
+    {
+        "slug": "esther-valdivia-y-flia",
+        "nombre": "Esther Valdivia Y Flia",
+        "pase": 2
+    },
+    {
+        "slug": "karina-valdivia-y-flia",
+        "nombre": "Karina Valdivia Y Flia.",
+        "pase": 2
+    },
+    {
+        "slug": "miriam-valdivia",
+        "nombre": "Miriam Valdivia",
+        "pase": 1
+    },
+    {
+        "slug": "kattya-valdivia",
+        "nombre": "Kattya Valdivia",
+        "pase": 1
+    },
+    {
+        "slug": "jhony-lastra-y-flia",
+        "nombre": "Jhony Lastra Y Flia.",
+        "pase": 1
+    },
+    {
+        "slug": "jose-lastra-y-flia",
+        "nombre": "Jose Lastra Y Flia.",
+        "pase": 1
+    },
+    {
+        "slug": "luis-lastra-y-flia",
+        "nombre": "Luis Lastra Y Flia.",
+        "pase": 1
+    },
+    {
+        "slug": "roberto-casas-y-flia",
+        "nombre": "Roberto Casas Y Flia.",
+        "pase": 2
+    },
+    {
+        "slug": "miguel-burgoa-y-flia",
+        "nombre": "Miguel Burgoa Y Flia.",
+        "pase": 2
+    },
+    {
+        "slug": "leonardo-lazarte-y-sra",
+        "nombre": "Leonardo Lazarte Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "betty-casas-peducasse",
+        "nombre": "Betty Casas Peducasse",
+        "pase": 1
+    },
+    {
+        "slug": "pamela-huaita-y-flia",
+        "nombre": "Pamela Huaita Y Flia.",
+        "pase": 2
+    },
+    {
+        "slug": "miguel-burgoa-y-flia-2",
+        "nombre": "Miguel Burgoa Y Flia.",
+        "pase": 2
+    },
+    {
+        "slug": "william-claros-y-sra",
+        "nombre": "William Claros Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "thiago-perez",
+        "nombre": "Thiago Perez",
+        "pase": 1
+    },
+    {
+        "slug": "juan-delgadillo",
+        "nombre": "Juan Delgadillo",
+        "pase": 1
+    },
+    {
+        "slug": "dana-justiniano",
+        "nombre": "Dana Justiniano",
+        "pase": 1
+    },
+    {
+        "slug": "adriana-pena",
+        "nombre": "Adriana Peña",
+        "pase": 1
+    },
+    {
+        "slug": "sergio-marquina",
+        "nombre": "Sergio Marquina",
+        "pase": 1
+    },
+    {
+        "slug": "david-taboada-y-sra",
+        "nombre": "David Taboada Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "ivan-montano-y-sra",
+        "nombre": "Ivan Montaño Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "sra-nair-toledo",
+        "nombre": "Sra. Nair Toledo",
+        "pase": 2
+    },
+    {
+        "slug": "pibe-melgar-y-sra",
+        "nombre": "Pibe Melgar Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "angel-rivero",
+        "nombre": "Angel Rivero",
+        "pase": 2
+    },
+    {
+        "slug": "victor-hugo-lastra",
+        "nombre": "Victor Hugo Lastra",
+        "pase": 1
+    },
+    {
+        "slug": "jose-yucra-y-sra",
+        "nombre": "Jose Yucra Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "alberto-yucra-y-sra",
+        "nombre": "Alberto Yucra Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "sra-luz-marina-lopez",
+        "nombre": "Sra. Luz Marina Lopez",
+        "pase": 2
+    },
+    {
+        "slug": "jose-antonio-mendoza-y-sra",
+        "nombre": "Jose Antonio Mendoza Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "brayan-laura-y-sra",
+        "nombre": "Brayan Laura Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "pablo-casas",
+        "nombre": "Pablo Casas",
+        "pase": 1
+    },
+    {
+        "slug": "fernando-burgoa",
+        "nombre": "Fernando Burgoa",
+        "pase": 1
+    },
+    {
+        "slug": "mirko-burgoa",
+        "nombre": "Mirko Burgoa",
+        "pase": 1
+    },
+    {
+        "slug": "ronald-mejia-y-sra",
+        "nombre": "Ronald Mejia Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "milena-y-marco",
+        "nombre": "Milena Y Marco",
+        "pase": 2
+    },
+    {
+        "slug": "everth-coll-y-sra",
+        "nombre": "Everth Coll Y Sra.",
+        "pase": 2
+    },
+    {
+        "slug": "micaela",
+        "nombre": "Micaela",
+        "pase": 1
+    }
+]

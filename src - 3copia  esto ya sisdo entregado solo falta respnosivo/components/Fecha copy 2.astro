@@ -1,0 +1,91 @@
+---
+// Fecha.astro  (Fecha del evento)
+---
+
+<div
+    id="fecha-contenedor"
+    data-entrada
+    class="relative w-full overflow-hidden flex flex-col items-center justify-center text-center px-6 pt-2 pb-12"
+>
+    <!-- FLORES LATERALES -->
+    <img
+        src="/imagenes/florlateral.png"
+        alt=""
+        class="pointer-events-none select-none absolute left-0 top-1/2 -translate-y-1/2 w-[10%] max-w-[60px] h-auto z-0"
+    />
+    <img
+        src="/imagenes/florlateral.png"
+        alt=""
+        class="pointer-events-none select-none absolute right-0 top-1/2 -translate-y-1/2 w-[10%] max-w-[60px] h-auto z-0 scale-x-[-1]"
+    />
+
+    <!-- CONTENIDO -->
+    <div class="relative z-10 flex flex-col items-center w-full">
+    <!-- DÍA -->
+    <p
+        id="fecha-dia"
+        class="m-0 font-cormorant not-italic text-[#f1e9d6] text-[80px] leading-none"
+    >
+        29
+    </p>
+
+    <!-- MES -->
+    <p
+        id="fecha-mes"
+        class="m-0 mt-6 font-romantic text-[#ffc065] text-[38px] leading-none"
+    >
+        Septiembre
+    </p>
+
+    <!-- AÑO -->
+    <p
+        id="fecha-anio"
+        class="m-0 mt-4 font-cormorant not-italic text-[#f1e9d6] text-[26px] tracking-[0.15em]"
+    >
+        2026
+    </p>
+
+    <!-- SILUETA -->
+    <img
+        src="/imagenes/silueta3.png"
+        alt=""
+        id="fecha-silueta"
+        class="w-[95px] h-auto mt-10 pointer-events-none select-none"
+    />
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function setupFecha() {
+        const contenedor = document.getElementById("fecha-contenedor");
+        if (!contenedor) return;
+
+        gsap.from(
+            [
+                "#fecha-dia",
+                "#fecha-mes",
+                "#fecha-anio",
+                "#fecha-silueta",
+            ],
+            {
+                opacity: 0,
+                y: 25,
+                duration: 1,
+                ease: "power3.out",
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: contenedor,
+                    start: "top 85%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+    }
+
+    document.addEventListener("DOMContentLoaded", setupFecha);
+    document.addEventListener("astro:page-load", setupFecha);
+</script>

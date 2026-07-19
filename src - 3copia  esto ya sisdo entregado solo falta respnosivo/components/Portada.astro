@@ -1,0 +1,165 @@
+---
+// Portada.astro
+interface Props {
+    nombre: string;
+    pase: number;
+}
+const { nombre, pase } = Astro.props;
+---
+
+<section
+    id="portada-sobre"
+    class="fixed inset-0 z-50 w-full h-full overflow-hidden bg-[#0f2a45]"
+>
+    <!-- SOBRE A PANTALLA COMPLETA -->
+    <img
+        id="sobre"
+        src="/imagenes/sobre.png"
+        alt="Sobre de invitación"
+        class="absolute inset-0 w-full h-full object-fill z-0"
+    />
+
+    <!-- OVERLAY TRANSICIÓN -->
+    <div
+        id="overlay-dorado"
+        class="fixed inset-0 z-[100] pointer-events-none opacity-0"
+        style="background: radial-gradient(circle at center, #5182ab 0%, #7ba7ce 40%, #ffffff 100%);"
+    >
+    </div>
+
+    <!-- BOTÓN CENTRAL -->
+    <div
+        class="relative z-10 w-full h-full flex items-center justify-center"
+    >
+        <button
+            id="btn-sobre"
+            aria-label="Abrir invitación"
+            class="bg-transparent border-0 outline-none p-0 cursor-pointer"
+        >
+            <img
+                src="/imagenes/boton.png"
+                alt="Abrir invitación"
+                class="w-28 h-auto object-contain drop-shadow-lg"
+            />
+        </button>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const html = document.documentElement;
+        const body = document.body;
+        html.classList.add("lock-scroll");
+        body.classList.add("lock-scroll");
+
+        const portada = document.getElementById("portada-sobre")!;
+        const btnSobre = document.getElementById("btn-sobre")!;
+
+        // ── ANIMACIÓN DE ENTRADA (todo al mismo tiempo) ──
+        const tl = gsap.timeline();
+        tl.from(
+            ["#sobre", "#btn-sobre"],
+            {
+                opacity: 0,
+                y: 20,
+                duration: 1,
+                ease: "power2.out",
+            },
+            0,
+        );
+        tl.to(
+            "#btn-sobre",
+            {
+                scale: 1.05,
+                duration: 1.2,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+            },
+            "+=0.2",
+        );
+
+        // ── SALIDA AL ABRIR ──
+        btnSobre.addEventListener("click", () => {
+            const audio = new Audio("/musica/melodia.mp3");
+            audio.loop = true;
+            audio.volume = 0.5;
+            audio.play().catch(() => {});
+            (window as any).audioGlobal = audio;
+            (window as any).estaReproduciendoGlobal = true;
+
+            const overlay = document.getElementById("overlay-dorado")!;
+            const tlSalida = gsap.timeline();
+
+            tlSalida.to(
+                overlay,
+                { opacity: 0.35, duration: 0.7, ease: "power1.in" },
+                0.2,
+            );
+            tlSalida.to(
+                portada,
+                { opacity: 0, duration: 0.9, ease: "power2.inOut" },
+                0.6,
+            );
+            tlSalida.to(
+                overlay,
+                {
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: "power2.in",
+                    onStart: () => {
+                        overlay.style.background = "#ffffff";
+                    },
+                },
+                0.9,
+            );
+
+            tlSalida.call(() => {
+                html.classList.remove("lock-scroll");
+                body.classList.remove("lock-scroll");
+                portada.remove();
+                const nombresFlores = document.getElementById("nombres-flores");
+                if (nombresFlores) {
+                    nombresFlores.style.display = "block";
+                    if (
+                        typeof (window as any).iniciarAnimacionNombresFlores ===
+                        "function"
+                    )
+                        (window as any).iniciarAnimacionNombresFlores();
+                    if (
+                        typeof (window as any).iniciarAnimacionDedicatoria ===
+                        "function"
+                    )
+                        (window as any).iniciarAnimacionDedicatoria();
+                }
+                setTimeout(() => {
+                    ScrollTrigger.refresh();
+                }, 100);
+            });
+
+            tlSalida.to(
+                overlay,
+                {
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: "power2.out",
+                    onComplete: () => overlay.remove(),
+                },
+                "+=0.05",
+            );
+        });
+    });
+</script>
+
+<style is:global>
+    .lock-scroll {
+        overflow: hidden !important;
+        height: 100vh !important;
+        width: 100% !important;
+        position: fixed !important;
+    }
+</style>

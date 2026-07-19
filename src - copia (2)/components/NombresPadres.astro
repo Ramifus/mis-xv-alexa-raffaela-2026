@@ -1,0 +1,100 @@
+---
+// NombresPadres.astro
+---
+
+<div
+    id="padres-contenedor"
+    class="relative w-full overflow-hidden flex flex-col items-center justify-center text-center px-6 pt-2 pb-10"
+>
+    <!-- FLORES LATERALES -->
+    <img
+        src="/imagenes/florlateral.png"
+        alt=""
+        class="pointer-events-none select-none absolute left-0 top-1/2 -translate-y-1/2 w-[10%] max-w-[60px] h-auto z-0"
+    />
+    <img
+        src="/imagenes/florlateral.png"
+        alt=""
+        class="pointer-events-none select-none absolute right-0 top-1/2 -translate-y-1/2 w-[10%] max-w-[60px] h-auto z-0 scale-x-[-1]"
+    />
+
+    <!-- CONTENIDO -->
+    <div class="relative z-10 flex flex-col items-center w-full">
+    <!-- SILUETA -->
+    <img
+        src="/imagenes/silueta.png"
+        alt=""
+        id="padres-silueta"
+        class="pointer-events-none select-none block w-[70px] h-auto mb-6 opacity-100"
+    />
+
+    <!-- SEPARADOR (flores + corona) -->
+    <img
+        src="/imagenes/separador2.png"
+        alt=""
+        id="padres-separador"
+        class="pointer-events-none select-none block w-[230px] h-auto"
+    />
+
+    <!-- CORAZÓN DE ROSAS -->
+    <img
+        src="/imagenes/rosa.png"
+        alt=""
+        id="padres-rosa"
+        class="pointer-events-none select-none block w-[62px] h-auto mt-7"
+    />
+
+    <!-- TÍTULO -->
+    <p
+        id="padres-titulo"
+        class="m-0 mt-7 font-romantic not-italic text-[#f1e9d6] text-[clamp(1.7rem,7vw,2.4rem)] leading-[1.7]"
+    >
+        Con la bendición<br />de mis Padres
+    </p>
+
+    <!-- NOMBRES -->
+    <p
+        id="padres-nombres"
+        class="m-0 mt-6 font-cormorant uppercase text-[#ffc065] text-[17px] tracking-normal leading-[2]"
+    >
+        Alex Gordillo<br />Carolina Reynolds
+    </p>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function setupPadres() {
+        const contenedor = document.getElementById("padres-contenedor");
+        if (!contenedor) return;
+
+        // Entrada al hacer scroll, suave y elegante
+        gsap.from(
+            [
+                "#padres-silueta",
+                "#padres-separador",
+                "#padres-rosa",
+                "#padres-titulo",
+                "#padres-nombres",
+            ],
+            {
+                opacity: 0,
+                y: 25,
+                duration: 1.2,
+                ease: "power2.out",
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: contenedor,
+                    start: "top 85%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+    }
+
+    document.addEventListener("DOMContentLoaded", setupPadres);
+    document.addEventListener("astro:page-load", setupPadres);
+</script>
