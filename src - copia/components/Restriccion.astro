@@ -1,0 +1,109 @@
+---
+// Restriccion.astro  (Te espero para celebrar)
+---
+
+<div
+    id="rest-contenedor"
+    class="relative w-full overflow-hidden flex flex-col items-center justify-center text-center px-8 pt-0 pb-52"
+>
+    <!-- ROSAS INFERIORES -->
+    <img
+        id="rest-flores"
+        src="/imagenes/flor.png"
+        alt=""
+        class="pointer-events-none select-none absolute bottom-0 left-0 w-full h-auto z-0 [transform:scaleY(-1)]"
+    />
+
+    <!-- CONTENIDO -->
+    <div class="relative z-10 flex flex-col items-center">
+        <!-- SEPARADOR DECORATIVO -->
+        <img
+            id="rest-separador"
+            src="/imagenes/separador3.png"
+            alt=""
+            class="w-[230px] h-auto select-none"
+            draggable="false"
+        />
+
+        <!-- SILUETA -->
+        <img
+            id="rest-silueta"
+            src="/imagenes/silueta2.png"
+            alt=""
+            class="w-[130px] h-auto mt-8 select-none"
+            draggable="false"
+        />
+
+        <!-- SUBTÍTULO -->
+        <p
+            id="rest-sub"
+            class="m-0 mt-10 font-cormorant not-italic uppercase text-[#f1e9d6] text-[13px] tracking-[0.28em]"
+        >
+            Te espero para celebrar
+        </p>
+
+        <!-- MIS XV AÑOS -->
+        <p
+            id="rest-xv"
+            class="m-0 mt-2 font-cormorant not-italic uppercase text-[#f1e9d6] text-[24px] tracking-[0.22em]"
+        >
+            Mis XV Años
+        </p>
+
+        <!-- NOMBRE -->
+        <h2
+            id="rest-nombre"
+            class="m-0 mt-7 font-romantic text-[#ffc065] text-[clamp(2.2rem,11vw,3.2rem)] leading-[1.1] whitespace-nowrap"
+        >
+            Alexa Raffaela
+        </h2>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initRestriccion() {
+        const contenedor = document.getElementById("rest-contenedor");
+        if (!contenedor) return;
+
+        gsap.from(
+            [
+                "#rest-separador",
+                "#rest-silueta",
+                "#rest-sub",
+                "#rest-xv",
+                "#rest-nombre",
+            ],
+            {
+                opacity: 0,
+                y: 20,
+                duration: 1,
+                stagger: 0.15,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: contenedor,
+                    start: "top 85%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+
+        gsap.from("#rest-flores", {
+            opacity: 0,
+            y: 30,
+            duration: 1.4,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            },
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initRestriccion);
+    document.addEventListener("astro:page-load", initRestriccion);
+</script>

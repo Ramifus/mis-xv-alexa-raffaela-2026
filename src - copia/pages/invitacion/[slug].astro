@@ -1,0 +1,48 @@
+---
+import invitados from "../../data/invitados.json";
+import Layout from "../../layouts/Layout.astro";
+import Portada from "../../components/Portada.astro";
+import NombresFlores from "../../components/NombresFlores.astro";
+import Dedicatoria from "../../components/Dedicatoria.astro";
+import Acodedicatoria from "../../components/Acodedicatoria.astro";
+import NombresPadres from "../../components/NombresPadres.astro";
+import NombresPadrinos from "../../components/NombresPadrinos.astro";
+import Contador from "../../components/Contador.astro";
+import Fecha from "../../components/Fecha.astro";
+import Calendario from "../../components/Calendario.astro";
+import Hora from "../../components/Hora.astro";
+import Direccion from "../../components/Direccion.astro";
+import Itinerario from "../../components/Itinerario.astro";
+import CodigoVestimenta from "../../components/CodigoVestimenta.astro";
+import Restriccion from "../../components/Restriccion.astro";
+import Confirmar from "../../components/Confirmar.astro";
+import Sugerencia from "../../components/SugerenciaRegalo.astro";
+
+export function getStaticPaths() {
+    return invitados.map((inv) => ({
+        params: { slug: inv.slug },
+        props: { nombre: inv.nombre, pase: inv.pase },
+    }));
+}
+
+const { nombre, pase } = Astro.props;
+---
+
+<Layout title="Mis XV">
+    <Portada nombre={nombre} pase={pase} />
+    <NombresFlores />
+    <Dedicatoria />
+    <Acodedicatoria />
+    <NombresPadres />
+    <NombresPadrinos />
+    <Contador />
+    <Fecha />
+    <Calendario />
+    <Hora />
+    <Direccion />
+    <Itinerario />
+    <CodigoVestimenta />
+    <Sugerencia />
+    <Restriccion />
+    <Confirmar />
+</Layout>

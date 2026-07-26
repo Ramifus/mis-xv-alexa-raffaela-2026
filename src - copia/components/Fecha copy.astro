@@ -1,0 +1,109 @@
+---
+// Contador.astro  (Fecha del evento)
+---
+
+<div
+    id="fecha-contenedor"
+    data-entrada
+    class="relative w-full flex flex-col items-center justify-center text-center px-6 pt-2 pb-12"
+>
+    <!-- FRASE -->
+    <p
+        id="fecha-frase"
+        class="m-0 font-montigny not-italic text-[#f1e9d6] text-[34px] leading-[1.3] max-w-[320px]"
+    >
+        Me gustaría que seas parte de este día especial
+    </p>
+
+    <!-- CORONA -->
+    <img
+        src="/imagenes/corona.png"
+        alt="Corona"
+        id="fecha-corona"
+        class="w-[80px] h-auto mt-6 pointer-events-none select-none"
+    />
+
+    <!-- BLOQUE DE FECHA -->
+    <div
+        id="fecha-bloque"
+        class="relative w-full max-w-[320px] mx-auto mt-4 flex items-center justify-center"
+    >
+        <div class="relative z-10 flex items-center justify-center w-full">
+            <!-- DÍA DE LA SEMANA -->
+            <div class="flex-1 flex flex-col items-center gap-2">
+                <span class="w-14 h-px bg-[#e2ac30]/70"></span>
+                <span
+                    class="font-cormorant not-italic uppercase text-[#f1e9d6] text-[14px] tracking-[0.1em]"
+                >
+                    Sábado
+                </span>
+                <span class="w-14 h-px bg-[#e2ac30]/70"></span>
+            </div>
+
+            <!-- CÁPSULA CON EL DÍA -->
+            <div
+                class="relative flex items-center justify-center w-[86px] h-[112px] shrink-0
+                       rounded-full border-2 border-[#e2ac30] bg-white/5 backdrop-blur-sm"
+            >
+                <!-- día centrado -->
+                <span
+                    class="font-cormorant not-italic font-bold text-[#e2ac30] text-[54px] leading-none relative -top-5"
+                >
+                    29
+                </span>
+
+                <!-- año (abajo) -->
+                <span
+                    class="absolute bottom-4 left-0 right-0 font-cormorant not-italic text-[#f1e9d6] text-[15px] opacity-80"
+                >
+                    2026
+                </span>
+            </div>
+
+            <!-- MES -->
+            <div class="flex-1 flex flex-col items-center gap-2">
+                <span class="w-14 h-px bg-[#e2ac30]/70"></span>
+                <span
+                    class="font-cormorant not-italic uppercase text-[#f1e9d6] text-[14px] tracking-[0.1em]"
+                >
+                    Septiembre
+                </span>
+                <span class="w-14 h-px bg-[#e2ac30]/70"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function setupFecha() {
+        const contenedor = document.getElementById("fecha-contenedor");
+        if (!contenedor) return;
+
+        gsap.from(
+            [
+                "#fecha-frase",
+                "#fecha-corona",
+                "#fecha-bloque",
+            ],
+            {
+                opacity: 0,
+                y: 25,
+                duration: 1,
+                ease: "power3.out",
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: contenedor,
+                    start: "top 85%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+    }
+
+    document.addEventListener("DOMContentLoaded", setupFecha);
+    document.addEventListener("astro:page-load", setupFecha);
+</script>

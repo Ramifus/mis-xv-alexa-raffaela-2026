@@ -1,0 +1,98 @@
+---
+// SugerenciaRegalo.astro  (Sugerencia de Regalos)
+---
+
+<div
+    id="sug-contenedor"
+    class="relative w-full flex flex-col items-center justify-center text-center px-6 pt-24 pb-14"
+>
+    <!-- CARD -->
+    <div
+        id="sug-card"
+        class="relative w-full max-w-[350px] mx-auto rounded-[26px] overflow-hidden
+               border border-[#ffc065]/40 shadow-[0_18px_45px_rgba(0,0,0,0.45)]"
+    >
+        <!-- FONDO AZUL -->
+        <img
+            src="/imagenes/azul.png"
+            alt=""
+            class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none select-none"
+        />
+
+        <!-- CONTENIDO -->
+        <div class="relative z-10 flex flex-col items-center px-8 py-10">
+            <!-- TÍTULO -->
+            <h2
+                class="m-0 font-romantic text-[#ffc065] text-[clamp(2.4rem,11vw,3.2rem)] leading-[1.1]"
+            >
+                Sugerencia de Regalos
+            </h2>
+
+            <!-- TEXTO -->
+            <p
+                class="m-0 mt-5 font-cormorant not-italic text-[#f1e9d6] text-[17px] leading-[1.7] max-w-[290px]"
+            >
+                Tu presencia será nuestro regalo más grande, pero si deseas
+                obsequiarme algo puede ser por QR.
+            </p>
+
+            <!-- QR -->
+            <div class="mt-7 bg-white rounded-2xl p-4 shadow-lg">
+                <img
+                    src="/imagenes/qr.png"
+                    alt="Código QR"
+                    class="w-[210px] h-[210px] object-contain"
+                />
+            </div>
+
+            <!-- DATOS DE CUENTA -->
+            <p
+                class="m-0 mt-6 font-cormorant not-italic uppercase text-[#ffc065] text-[13px] tracking-[0.15em]"
+            >
+                Nombre de la cuenta
+            </p>
+            <p
+                class="m-0 mt-1 font-cormorant not-italic text-[#f1e9d6] text-[18px] leading-[1.5]"
+            >
+                Gordillo Reynolds Alexa Raffaela
+            </p>
+
+            <p
+                class="m-0 mt-4 font-cormorant not-italic uppercase text-[#ffc065] text-[13px] tracking-[0.15em]"
+            >
+                Motivo
+            </p>
+            <p
+                class="m-0 mt-1 font-cormorant not-italic text-[#f1e9d6] text-[18px] leading-[1.5]"
+            >
+                Obsequio 15 años Alexa
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initSug() {
+        const contenedor = document.getElementById("sug-contenedor");
+        if (!contenedor) return;
+
+        gsap.from("#sug-card", {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1.1,
+            ease: "back.out(1.6)",
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            },
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initSug);
+    document.addEventListener("astro:page-load", initSug);
+</script>
