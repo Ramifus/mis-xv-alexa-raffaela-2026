@@ -59,7 +59,8 @@
         Confirma tu Asistencia
     </h2>
 
-    <!-- TEXTO -->
+    <!-- TEXTO — oculto por ahora; descomentar para volver a mostrarlo -->
+    <!--
     <p
         data-item
         id="conf-texto"
@@ -68,15 +69,7 @@
         Será de mucha alegría contar con tu presencia en este día tan importante
         para mí.
     </p>
-
-    <!-- INDICACIÓN -->
-    <p
-        data-item
-        id="conf-indicacion"
-        class="m-0 mt-8 font-cormorant not-italic font-semibold uppercase text-[#ffc065] text-[14px] tracking-[0.12em] max-w-[300px]"
-    >
-        Haz clic en el botón para confirmar tu asistencia
-    </p>
+    -->
 
     <!-- FECHA LÍMITE (cuadro sutil y elegante) -->
     <div
@@ -105,12 +98,21 @@
         </p>
     </div>
 
+    <!-- INDICACIÓN (va pegada al botón: es la instrucción de qué hacer) -->
+    <p
+        data-item
+        id="conf-indicacion"
+        class="m-0 mt-8 font-cormorant not-italic font-semibold uppercase text-[#ffc065] text-[14px] tracking-[0.12em] max-w-[300px]"
+    >
+        Haz clic en el botón para confirmar tu asistencia
+    </p>
+
     <!-- BOTÓN QUE ABRE EL MODAL DEL FORMULARIO -->
     <button
         data-item
         id="conf-abrir-modal"
         type="button"
-        class="mt-8 inline-flex w-auto max-w-full items-center justify-center gap-2 rounded-full
+        class="mt-4 inline-flex w-auto max-w-full items-center justify-center gap-2 rounded-full
                whitespace-nowrap
                bg-[#ffc065] px-7 py-3.5 font-cormorant not-italic font-semibold
                uppercase tracking-[0.08em] text-[#16304d] text-[clamp(12px,3.6vw,15px)]
