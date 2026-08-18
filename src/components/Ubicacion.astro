@@ -9,12 +9,14 @@ const linkUbicacion = "https://maps.app.goo.gl/7h2TdWepnryqwrKz8";
     id="direccion-contenedor"
     class="relative w-full flex flex-col items-center justify-center text-center px-6 pt-2 pb-14"
 >
+    <!-- WRAPPER (permite que las flores sobresalgan del card) -->
+    <div class="relative w-full max-w-[340px] mx-auto">
     <!-- CARD -->
     <!-- Esquinas asimétricas (grandes arriba-izq / abajo-der, pequeñas en las
          otras dos) + filete interior: da el aire de tarjeta de invitación. -->
     <div
         id="direccion-card"
-        class="relative w-full max-w-[340px] mx-auto bg-[#ffc065]
+        class="relative w-full bg-[#ffc065]
                rounded-tl-[56px] rounded-br-[56px] rounded-tr-[18px] rounded-bl-[18px]
                border border-[#16304d]/25
                shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-8 py-10 flex flex-col items-center"
@@ -31,7 +33,7 @@ const linkUbicacion = "https://maps.app.goo.gl/7h2TdWepnryqwrKz8";
             id="direccion-subtitulo"
             class="relative m-0 font-romantic text-[#16304d] text-[36px] leading-[1.4]"
         >
-            Recepción
+            Recepción Social
         </p>
 
         <!-- ENTRADILLA (enlaza con el logo que va justo debajo) -->
@@ -111,6 +113,33 @@ const linkUbicacion = "https://maps.app.goo.gl/7h2TdWepnryqwrKz8";
         >
             Ver ubicación
         </a>
+    </div>
+
+    <!-- FLOR ESQUINA SUPERIOR DERECHA -->
+    <div
+        data-item="der"
+        id="direccion-flor-tr"
+        class="pointer-events-none absolute -top-5 -right-5 w-[42%] max-w-[150px] z-20"
+    >
+        <img
+            src="/imagenes/florcostado.png"
+            alt=""
+            class="select-none w-full h-auto scale-x-[-1]"
+        />
+    </div>
+
+    <!-- FLOR ESQUINA INFERIOR IZQUIERDA -->
+    <div
+        data-item="izq"
+        id="direccion-flor-bl"
+        class="pointer-events-none absolute -bottom-5 -left-5 w-[42%] max-w-[150px] z-20"
+    >
+        <img
+            src="/imagenes/florcostado.png"
+            alt=""
+            class="select-none w-full h-auto scale-y-[-1]"
+        />
+    </div>
     </div>
 </div>
 
