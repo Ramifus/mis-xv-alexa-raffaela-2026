@@ -1,0 +1,85 @@
+---
+// CodigoVestimenta.astro
+---
+
+<section
+    id="cv-contenedor"
+    class="relative w-full overflow-hidden pt-2"
+>
+    <!-- FONDO BLANCO CON OLAS -->
+    <div
+        class="absolute inset-0 z-0 pointer-events-none"
+        style="background-image:url('/imagenes/fondoblanco.png');background-size:100% 100%;background-position:center;background-repeat:no-repeat;"
+    >
+    </div>
+
+    <!-- CONTENIDO -->
+    <div
+        id="cv-card"
+        class="relative z-10 flex flex-col items-center text-center px-8 py-20"
+    >
+        <!-- TÍTULO -->
+        <p
+            id="cv-titulo"
+            class="m-0 font-romantic text-[#16304d] text-[clamp(2.6rem,13vw,3.6rem)] leading-[1.5]"
+        >
+            Código de<br />Vestimenta
+        </p>
+
+        <!-- FORMAL -->
+        <p
+            id="cv-formal"
+            class="m-0 mt-6 font-cormorant not-italic font-bold uppercase text-[#16304d] text-[24px] tracking-[0.25em]"
+        >
+            Formal
+        </p>
+
+        <!-- IMAGEN VESTIMENTA (pareja) -->
+        <img
+            src="/imagenes/vestimenta.png"
+            alt="Vestimenta formal"
+            id="cv-imagen"
+            class="w-[130px] h-auto mt-8 pointer-events-none select-none"
+        />
+
+        <!-- MUESTRAS DE COLOR -->
+        <div class="mt-8 flex items-center justify-center gap-4">
+            <span class="w-11 h-11 rounded-[4px] bg-[#e23744]"></span>
+            <span class="w-11 h-11 rounded-[4px] bg-[#ffc065]"></span>
+        </div>
+
+        <!-- RESERVA DE COLORES -->
+        <p
+            id="cv-reserva"
+            class="m-0 mt-6 font-cormorant not-italic uppercase text-[#16304d] text-[13px] tracking-[0.12em] leading-[1.7] max-w-[280px]"
+        >
+            Nos reservamos el color rojo y dorado para la quinceañera
+        </p>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initCV() {
+        const contenedor = document.getElementById("cv-contenedor");
+        if (!contenedor) return;
+
+        gsap.from("#cv-card", {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1.1,
+            ease: "back.out(1.6)",
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            },
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initCV);
+    document.addEventListener("astro:page-load", initCV);
+</script>

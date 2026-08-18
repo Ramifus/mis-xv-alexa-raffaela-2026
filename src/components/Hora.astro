@@ -1,12 +1,3 @@
----
-// Hora.astro  (Confirma tu Asistencia)
-const mensaje =
-    "Me complace confirmar mi asistencia para los 15 años de Alexa. Nos vemos el sábado 19 de septiembre, estaré sin falta";
-const texto = encodeURIComponent(mensaje);
-
-const linkPadre = `https://wa.me/59177940909?text=${texto}`;
-const linkMadre = `https://wa.me/59177414142?text=${texto}`;
----
 
 <div
     id="conf-contenedor"
@@ -69,56 +60,6 @@ const linkMadre = `https://wa.me/59177414142?text=${texto}`;
         Haz clic en el botón para confirmar tu asistencia
     </p>
 
-    <!-- BOTONES CONFIRMAR (WhatsApp) -->
-    <div
-        id="conf-botones"
-        class="mt-6 flex items-start justify-center gap-6"
-    >
-        <!-- PAPÁ -->
-        <div class="flex flex-col items-center gap-2">
-            <span
-                class="font-cormorant not-italic text-[#ffc065] text-[17px]"
-            >
-                Papá
-            </span>
-            <a
-                href={linkPadre}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center rounded-lg
-                       bg-[#ffc065] px-6 py-2 transition-opacity hover:opacity-90"
-            >
-                <span
-                    class="font-crimson not-italic text-[#16304d] text-[20px] tabular-nums tracking-wide"
-                >
-                    77940909
-                </span>
-            </a>
-        </div>
-
-        <!-- MAMÁ -->
-        <div class="flex flex-col items-center gap-2">
-            <span
-                class="font-cormorant not-italic text-[#ffc065] text-[17px]"
-            >
-                Mamá
-            </span>
-            <a
-                href={linkMadre}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center rounded-lg
-                       bg-[#ffc065] px-6 py-2 transition-opacity hover:opacity-90"
-            >
-                <span
-                    class="font-crimson not-italic text-[#16304d] text-[20px] tabular-nums tracking-wide"
-                >
-                    77414142
-                </span>
-            </a>
-        </div>
-    </div>
-
     <!-- FECHA LÍMITE (cuadro sutil y elegante) -->
     <div
         id="conf-limite"
@@ -127,9 +68,10 @@ const linkMadre = `https://wa.me/59177414142?text=${texto}`;
                shadow-[0_10px_30px_rgba(0,0,0,0.25)]"
     >
         <p
-            class="m-0 font-cormorant not-italic uppercase text-[#f1e9d6]/80 text-[12px] tracking-[0.22em]"
+            class="m-0 font-cormorant not-italic text-[#f1e9d6]/90 text-[19px] leading-[1.55] tracking-[0.03em]"
         >
-            Confirma antes del
+            Tu presencia es muy importante para mí, no olvides confirmar tu
+            asistencia
         </p>
 
         <!-- adorno sutil -->
@@ -143,6 +85,139 @@ const linkMadre = `https://wa.me/59177414142?text=${texto}`;
             07 de Septiembre
         </p>
     </div>
+
+    <!-- BOTÓN QUE ABRE EL MODAL DEL FORMULARIO -->
+    <button
+        id="conf-abrir-modal"
+        type="button"
+        class="mt-8 inline-flex w-auto max-w-full items-center justify-center gap-2 rounded-full
+               whitespace-nowrap
+               bg-[#ffc065] px-7 py-3.5 font-cormorant not-italic font-semibold
+               uppercase tracking-[0.08em] text-[#16304d] text-[clamp(12px,3.6vw,15px)]
+               shadow-[0_10px_26px_rgba(0,0,0,0.35)]
+               transition-all duration-300 hover:-translate-y-0.5 hover:opacity-90"
+    >
+        <svg
+            class="w-[18px] h-[18px]"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+        >
+            <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+        Confirmar asistencia
+    </button>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MODAL DE CONFIRMACIÓN
+     Por ahora es SOLO DISEÑO: el formulario no envía a ningún lado.
+     Pendiente: enlazar con Google Sheets (Apps Script / Forms).
+     Va fuera de #conf-contenedor para que las animaciones GSAP y el
+     overflow-hidden de la sección no lo afecten.
+     ═══════════════════════════════════════════════════════════════ -->
+<div
+    id="conf-modal"
+    class="fixed inset-0 z-[999] hidden items-center justify-center overflow-y-auto overscroll-contain px-5 py-8"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="conf-modal-titulo"
+>
+    <!-- FONDO OSCURO -->
+    <div
+        id="conf-modal-fondo"
+        class="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-300"
+    >
+    </div>
+
+    <!-- CAJA -->
+    <div
+        id="conf-modal-caja"
+        class="relative w-full max-w-[380px] overflow-hidden rounded-[22px]
+               border border-[#ffc065]/40 bg-[#16304d]
+               shadow-[0_25px_60px_rgba(0,0,0,0.6)]
+               opacity-0 scale-95 transition-all duration-300"
+    >
+        <!-- ENCABEZADO -->
+        <div
+            class="flex items-center justify-between border-b border-[#ffc065]/25 px-6 py-4"
+        >
+            <span
+                class="font-cormorant not-italic text-[#f1e9d6] text-[17px] tracking-[0.06em]"
+            >
+                Confirmar Asistencia
+            </span>
+            <button
+                id="conf-cerrar-modal"
+                type="button"
+                aria-label="Cerrar"
+                class="text-[#f1e9d6]/70 transition-colors hover:text-[#ffc065]"
+            >
+                <svg
+                    class="w-6 h-6"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                >
+                    <path d="M18 6 6 18M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- CUERPO -->
+        <form id="conf-form" class="px-6 pb-7 pt-6 text-center">
+            <h3
+                id="conf-modal-titulo"
+                class="m-0 font-romantic not-italic text-[#ffc065] text-[30px] leading-[1.35]"
+            >
+                Confirmación de Asistencia
+            </h3>
+
+            <p
+                class="m-0 mt-2 font-cormorant not-italic text-[#f1e9d6]/80 text-[15px] leading-[1.5]"
+            >
+                Ingresa el nombre de las personas que asistirán:
+            </p>
+
+            <input
+                id="conf-input-nombre"
+                type="text"
+                name="nombre"
+                required
+                autocomplete="name"
+                placeholder="Nombre y apellido"
+                class="mt-5 w-full rounded-xl border border-[#ffc065]/30
+                       bg-white/[0.06] px-4 py-3
+                       font-cormorant not-italic text-[#f1e9d6] text-[17px]
+                       placeholder:text-[#f1e9d6]/45
+                       outline-none transition-colors
+                       focus:border-[#ffc065] focus:bg-white/[0.09]"
+            />
+
+            <button
+                type="submit"
+                class="mt-4 w-full rounded-full bg-[#ffc065] px-6 py-3.5
+                       font-cormorant not-italic font-semibold text-[#16304d] text-[19px]
+                       shadow-[0_10px_26px_rgba(0,0,0,0.35)]
+                       transition-opacity duration-300 hover:opacity-90"
+            >
+                Enviar Confirmación
+            </button>
+
+            <!-- MENSAJE DE RESPUESTA -->
+            <p
+                id="conf-form-mensaje"
+                class="m-0 mt-4 hidden font-cormorant not-italic text-[#ffc065] text-[16px] leading-[1.5]"
+            >
+            </p>
+        </form>
     </div>
 </div>
 
@@ -162,8 +237,8 @@ const linkMadre = `https://wa.me/59177414142?text=${texto}`;
                 "#conf-titulo",
                 "#conf-texto",
                 "#conf-indicacion",
-                "#conf-botones",
                 "#conf-limite",
+                "#conf-abrir-modal",
             ],
             {
                 opacity: 0,
@@ -180,6 +255,99 @@ const linkMadre = `https://wa.me/59177414142?text=${texto}`;
         );
     }
 
-    document.addEventListener("DOMContentLoaded", initConf);
-    document.addEventListener("astro:page-load", initConf);
+    // ── MODAL DE CONFIRMACIÓN (solo diseño por ahora) ──────────────
+    function initConfModal() {
+        const modal = document.getElementById("conf-modal");
+        const fondo = document.getElementById("conf-modal-fondo");
+        const caja = document.getElementById("conf-modal-caja");
+        const abrir = document.getElementById("conf-abrir-modal");
+        const cerrar = document.getElementById("conf-cerrar-modal");
+        const form = document.getElementById("conf-form");
+        const input = document.getElementById("conf-input-nombre");
+        const mensaje = document.getElementById("conf-form-mensaje");
+        if (!modal || !fondo || !caja || !abrir || !cerrar || !form) return;
+
+        // El Layout hace scroll sobre <html>, así que hay que bloquear los
+        // dos: con body solo, el fondo se seguía moviendo. overscroll-behavior
+        // evita además que el scroll "se contagie" a la página al llegar al
+        // final del modal.
+        function bloquearScroll() {
+            document.documentElement.style.overflow = "hidden";
+            document.body.style.overflow = "hidden";
+            document.body.style.overscrollBehavior = "none";
+        }
+
+        function liberarScroll() {
+            document.documentElement.style.overflow = "";
+            document.body.style.overflow = "";
+            document.body.style.overscrollBehavior = "";
+        }
+
+        function abrirModal() {
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            bloquearScroll();
+            // El frame siguiente, para que la transición se vea.
+            requestAnimationFrame(() => {
+                fondo.classList.replace("opacity-0", "opacity-100");
+                caja.classList.replace("opacity-0", "opacity-100");
+                caja.classList.replace("scale-95", "scale-100");
+            });
+            setTimeout(() => input && input.focus(), 320);
+        }
+
+        function cerrarModal() {
+            fondo.classList.replace("opacity-100", "opacity-0");
+            caja.classList.replace("opacity-100", "opacity-0");
+            caja.classList.replace("scale-100", "scale-95");
+            liberarScroll();
+            setTimeout(() => {
+                modal.classList.add("hidden");
+                modal.classList.remove("flex");
+            }, 300);
+        }
+
+        abrir.addEventListener("click", abrirModal);
+        cerrar.addEventListener("click", cerrarModal);
+        fondo.addEventListener("click", cerrarModal);
+        // iOS ignora overflow:hidden en algunos casos: si el dedo arrastra
+        // sobre el fondo oscuro, se cancela el gesto.
+        fondo.addEventListener(
+            "touchmove",
+            (e) => {
+                e.preventDefault();
+            },
+            { passive: false },
+        );
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+                cerrarModal();
+            }
+        });
+
+        // TODO: enlazar con Google Sheets. Por ahora solo muestra el mensaje.
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (!mensaje) return;
+            const nombre = input && input.value.trim();
+            if (!nombre) return;
+            mensaje.textContent =
+                "¡Gracias, " + nombre + "! Tu confirmación fue registrada.";
+            mensaje.classList.remove("hidden");
+            setTimeout(() => {
+                cerrarModal();
+                form.reset();
+                mensaje.classList.add("hidden");
+            }, 2200);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        initConf();
+        initConfModal();
+    });
+    document.addEventListener("astro:page-load", () => {
+        initConf();
+        initConfModal();
+    });
 </script>

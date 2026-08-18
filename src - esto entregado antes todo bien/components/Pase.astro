@@ -81,7 +81,9 @@ const { numeroPases = 1, nombreInvitado = "" } = Astro.props;
                                 {
                                     numeroPases === 1
                                         ? "Esperamos contar con tu presencia"
-                                        : "Esperamos contar con su presencia"
+                                        : numeroPases === 2
+                                          ? "Esperamos contar con la presencia de ambos"
+                                          : `Esperamos contar con la presencia de los ${numeroPases}`
                                 }
                             </p>
                         </div>

@@ -12,11 +12,7 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- La invitación YA es un diseño oscuro. Al declararlo, Chrome / Android
-         Auto Dark Theme / WebView desactivan su "Force Dark" y dejan de
-         invertir los colores propios (el dorado #ffc065 se veía rojizo). -->
-    <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#16304d" />
+    <meta name="color-scheme" content="light only" />
     <link rel="icon" type="image/png" href="/imagenes/corona.png" />
     <link rel="shortcut icon" type="image/png" href="/imagenes/corona.png" />
     <link rel="apple-touch-icon" href="/imagenes/corona.png" />
@@ -43,34 +39,23 @@ const { title } = Astro.props;
     />
 
     <style>
-      /* ═══════════════════════════════════════════════════════════
-         COLORES BLOQUEADOS: el diseño se ve igual en cualquier
-         navegador / sistema operativo, con o sin modo oscuro.
-
-         1) color-scheme: dark  -> la página declara que YA es oscura,
-            así el navegador no aplica su propio Force Dark encima.
-         2) forced-color-adjust: none -> ignora el Alto Contraste de
-            Windows y el "Smart Invert" de iOS, que repintan todo.
-         ═══════════════════════════════════════════════════════════ */
+      /* FORZAR MODO CLARO - DESHABILITAR MODO OSCURO */
       :root {
-        color-scheme: dark;
-        forced-color-adjust: none;
+        color-scheme: light only;
       }
 
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        forced-color-adjust: none;
-        -webkit-text-size-adjust: 100%;
-        text-size-adjust: 100%;
+        color-scheme: light only;
       }
 
       html {
         width: 100%;
         height: 100%;
         overflow-x: hidden;
-        color-scheme: dark;
+        color-scheme: light only;
         background-color: transparent;
       }
 
@@ -81,7 +66,7 @@ const { title } = Astro.props;
         min-height: 100vh;
         overflow-x: hidden;
         background-color: transparent;
-        color-scheme: dark;
+        color-scheme: light only;
         position: relative;
       }
 
@@ -128,23 +113,20 @@ const { title } = Astro.props;
         transition: opacity 0.35s ease;
       }
 
-      /* El diseño es el MISMO con el sistema en claro o en oscuro: no se
-         define ninguna variante, así que prefers-color-scheme no cambia nada.
-         Se deja explícito para que ningún estilo futuro lo reintroduzca. */
-      @media (prefers-color-scheme: light),
-             (prefers-color-scheme: dark) {
+      /* Prevenir cualquier cambio de color por modo oscuro */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: light only !important;
+        }
+
         html,
         body {
-          background-color: transparent;
-          color: inherit;
+          background-color: transparent !important;
+          color: inherit !important;
         }
-      }
 
-      /* ALTO CONTRASTE DE WINDOWS: por defecto reemplaza todos los colores
-         por la paleta del sistema. Aquí se conservan los originales. */
-      @media (forced-colors: active) {
         * {
-          forced-color-adjust: none !important;
+          color-scheme: light only !important;
         }
       }
     </style>

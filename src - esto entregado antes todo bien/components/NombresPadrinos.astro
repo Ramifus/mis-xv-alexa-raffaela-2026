@@ -1,0 +1,132 @@
+---
+// NombresPadrinos.astro  (Ubicación del evento)
+const mapsUrl = "https://maps.app.goo.gl/YCJV2hBgsVUWab3T7";
+---
+
+<div
+    id="padrinos-contenedor"
+    class="relative w-full overflow-hidden"
+>
+    <!-- FONDO (define el alto del contenedor, se muestra completo) -->
+    <img
+        src="/imagenes/fondo3.png"
+        alt=""
+        class="block w-full h-auto z-0 pointer-events-none select-none"
+        style="-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 7%, black 93%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, black 7%, black 93%, transparent 100%);"
+    />
+
+    <!-- CONTENIDO (superpuesto sobre la imagen) -->
+    <div
+        class="absolute inset-0 z-[10] flex flex-col items-center justify-center text-center px-10 gap-3"
+    >
+        <!-- ICONO DIRECCIÓN -->
+        <img
+            id="padrinos-icono"
+            src="/imagenes/dire.png"
+            alt="Ubicación"
+            class="w-[70px] h-auto pointer-events-none select-none"
+        />
+
+        <!-- NOMBRE DEL SALÓN -->
+        <h2
+            id="padrinos-titulo"
+            class="m-0 font-great-vibes text-[#5182ab] text-[44px] leading-[1.1]
+                   [text-shadow:0_1px_10px_rgba(255,255,255,0.85)]"
+        >
+            Salón de Eventos Galas
+        </h2>
+
+        <!-- DIRECCIÓN -->
+        <p
+            id="padrinos-direccion"
+            class="m-0 font-crimson text-[#5182ab] text-[15px] leading-[1.6] max-w-[280px]
+                   [text-shadow:0_1px_6px_rgba(255,255,255,0.85)]"
+        >
+            Av. Los Ceibos esq. Francisco Uriondo, Tarija.
+        </p>
+
+        <!-- BOTÓN VER UBICACIÓN -->
+        <a
+            id="padrinos-boton"
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="relative mt-2 inline-flex flex-col items-center"
+        >
+            <span
+                class="font-crimson font-bold uppercase tracking-[0.15em] text-white text-[15px]
+                       bg-[#2e5c86] hover:bg-[#264d70] transition-colors
+                       px-7 py-2.5 rounded-full shadow-lg"
+            >
+                Ver ubicación
+            </span>
+            <span
+                class="font-great-vibes text-[#5182ab] text-[24px] mt-1 leading-none
+                       [text-shadow:0_1px_6px_rgba(255,255,255,0.85)]"
+            >
+                ¿dónde es?
+            </span>
+        </a>
+    </div>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initPadrinos() {
+        const contenedor = document.getElementById("padrinos-contenedor");
+        if (!contenedor) return;
+
+        const icono = document.getElementById("padrinos-icono");
+        const titulo = document.getElementById("padrinos-titulo");
+        const direccion = document.getElementById("padrinos-direccion");
+        const boton = document.getElementById("padrinos-boton");
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            },
+        });
+
+        tl.from(icono, {
+            y: -20,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.7)",
+            onComplete: () => {
+                gsap.to(icono, {
+                    y: -6,
+                    duration: 2.2,
+                    ease: "sine.inOut",
+                    repeat: -1,
+                    yoyo: true,
+                });
+            },
+        })
+            .from(titulo, {
+                opacity: 0,
+                y: 15,
+                duration: 1,
+                ease: "power2.out",
+            }, "-=0.5")
+            .from(direccion, {
+                opacity: 0,
+                y: 15,
+                duration: 0.9,
+                ease: "power2.out",
+            }, "-=0.6")
+            .from(boton, {
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.9,
+                ease: "back.out(1.7)",
+            }, "-=0.5");
+    }
+
+    document.addEventListener("DOMContentLoaded", initPadrinos);
+    document.addEventListener("astro:page-load", initPadrinos);
+</script>
