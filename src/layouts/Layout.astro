@@ -211,28 +211,101 @@ const { title } = Astro.props;
       // Todos los triggers recalculan posiciones cuando se llama refresh()
       ScrollTrigger.defaults({ invalidateOnRefresh: true });
 
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll("[data-entrada]").forEach((el) => {
-          gsap.set(el, { opacity: 0, y: 50, scale: 0.97 });
+      // ENTRADA ELEMENTO POR ELEMENTO
+      // El contenedor con [data-entrada] solo marca el ámbito y dispara el
+      // scroll; lo que se anima son sus [data-item], uno detrás de otro.
+      //
+      // El valor del atributo elige DE DÓNDE entra cada pieza:
+      //   data-item          -> sube desde abajo (por defecto)
+      //   data-item="izq"    -> entra deslizándose desde la izquierda
+      //   data-item="der"    -> entra deslizándose desde la derecha
+      // Las flores de los costados usan izq/der para que cada una venga de
+      // su propio lado, en vez de subir todas igual.
+      // Recorridos cortos y escala casi imperceptible: la entrada se nota
+      // como algo que se posa, no como algo que salta.
+      const DESDE = {
+        "": { opacity: 0, x: 0, y: 22, scale: 0.99 },
+        izq: { opacity: 0, x: -42, y: 0, scale: 0.985 },
+        der: { opacity: 0, x: 42, y: 0, scale: 0.985 },
+      };
 
+      function ocultoDe(el) {
+        return DESDE[el.getAttribute("data-item") || ""] || DESDE[""];
+      }
+
+      const yaPreparados = new WeakSet();
+
+      // Si el componente no marcó piezas, entra como un bloque entero.
+      function piezas(el) {
+        const marcadas = el.querySelectorAll("[data-item]");
+        return marcadas.length ? Array.from(marcadas) : [el];
+      }
+
+      function ocultar(objetivos) {
+        objetivos.forEach((p) => gsap.set(p, ocultoDe(p)));
+      }
+
+      // "sine.out" frena de forma pareja, sin el tirón inicial de power3:
+      // es lo que da la sensación delicada. La duración larga y el stagger
+      // amplio hacen que las piezas se encadenen en vez de dispararse.
+      function mostrar(objetivos) {
+        gsap.to(objetivos, {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration: 1.45,
+          ease: "sine.out",
+          stagger: 0.16,
+          overwrite: "auto",
+          // Al terminar se borra el transform inline que deja GSAP. Si no,
+          // pisa para siempre los transform de CSS (los hover:scale-105 y
+          // hover:-translate-y de los botones dejarían de funcionar).
+          clearProps: "transform",
+        });
+      }
+
+      function setupEntradas() {
+        const sinMovimiento = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        document.querySelectorAll("[data-entrada]").forEach((el) => {
+          if (yaPreparados.has(el)) return;
+          yaPreparados.add(el);
+
+          const objetivos = piezas(el);
+
+          if (sinMovimiento) {
+            gsap.set(objetivos, { opacity: 1, x: 0, y: 0, scale: 1 });
+            return;
+          }
+
+          ocultar(objetivos);
+
+          // 1) ENTRADA: cuando el bloque asoma por abajo, las piezas van
+          //    apareciendo escalonadas en el orden en que están en el HTML.
           ScrollTrigger.create({
             trigger: el,
-            start: "top 98%",
-            onEnter: () => {
-              gsap.to(el, {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 1,
-                ease: "power3.out",
-              });
-            },
-            onLeaveBack: () => {
-              gsap.set(el, { opacity: 0, y: 50, scale: 0.97 });
-            },
+            start: "top 88%",
+            onEnter: () => mostrar(objetivos),
+          });
+
+          // 2) REARME: se vuelven a ocultar SOLO cuando el bloque salió por
+          //    completo de la pantalla por abajo. Esta histéresis es la que
+          //    quita el parpadeo: si se ocultaran en el mismo punto donde
+          //    entran, al scrollear despacio sobre ese límite el componente
+          //    se prendía y apagaba a cada píxel.
+          ScrollTrigger.create({
+            trigger: el,
+            start: "top bottom",
+            onLeaveBack: () => ocultar(objetivos),
           });
         });
-      });
+      }
+
+      document.addEventListener("DOMContentLoaded", setupEntradas);
+      document.addEventListener("astro:page-load", setupEntradas);
 
       // Recalcula todas las posiciones cuando las imágenes ya cargaron.
       // En móvil DOMContentLoaded dispara antes de cargar imágenes,

@@ -3,7 +3,6 @@
 ---
 
 <section
-    data-entrada
     id="cv-contenedor"
     class="relative w-full overflow-hidden pt-2"
 >
@@ -21,7 +20,6 @@
     >
         <!-- TÍTULO -->
         <p
-            data-item
             id="cv-titulo"
             class="m-0 font-romantic text-[#16304d] text-[clamp(2.6rem,13vw,3.6rem)] leading-[1.5]"
         >
@@ -30,7 +28,6 @@
 
         <!-- FORMAL -->
         <p
-            data-item
             id="cv-formal"
             class="m-0 mt-6 font-cormorant not-italic font-bold uppercase text-[#16304d] text-[24px] tracking-[0.25em]"
         >
@@ -41,14 +38,12 @@
         <!-- mujer.png (439x1159) y hombre.png (337x1202) tienen proporciones
              distintas, por eso se igualan por ALTO (h-[180px] w-auto) y no por
              ancho: así las dos figuras quedan a la misma escala. -->
-        <!-- Cada figura entra por su lado: Él desde la izquierda y Ella desde
-             la derecha, como si se acercaran al centro. -->
         <div
             id="cv-figuras"
             class="mt-8 flex items-end justify-center gap-8"
         >
             <!-- ÉL (hombre.png) -->
-            <div data-item="izq" class="flex flex-col items-center">
+            <div class="flex flex-col items-center">
                 <img
                     src="/imagenes/hombre.png"
                     alt="Vestimenta formal para varón"
@@ -62,7 +57,7 @@
             </div>
 
             <!-- ELLA (mujer.png) -->
-            <div data-item="der" class="flex flex-col items-center">
+            <div class="flex flex-col items-center">
                 <img
                     src="/imagenes/mujer.png"
                     alt="Vestimenta formal para mujer"
@@ -84,7 +79,6 @@
 
         <!-- RESERVA DE COLORES -->
         <p
-            data-item
             id="cv-reserva"
             class="m-0 mt-6 font-cormorant not-italic uppercase text-[#16304d] text-[13px] tracking-[0.12em] leading-[1.7] max-w-[280px]"
         >
@@ -93,3 +87,28 @@
     </div>
 </section>
 
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initCV() {
+        const contenedor = document.getElementById("cv-contenedor");
+        if (!contenedor) return;
+
+        gsap.from("#cv-card", {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1.1,
+            ease: "back.out(1.6)",
+            scrollTrigger: {
+                trigger: contenedor,
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            },
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initCV);
+    document.addEventListener("astro:page-load", initCV);
+</script>

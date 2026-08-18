@@ -1,0 +1,76 @@
+---
+// Restriccion.astro  (Te espero para celebrar)
+---
+
+<div
+    data-entrada
+    id="rest-contenedor"
+    class="relative w-full overflow-hidden flex flex-col items-center justify-center text-center px-8 pt-0 pb-52"
+>
+    <!-- ROSAS INFERIORES -->
+    <!-- El volteo vertical vive en la <img> interior, NO en el div animado:
+         GSAP escribe su propio transform al animar y borraría el scaleY(-1),
+         dejando las rosas al revés. -->
+    <div
+        data-item
+        id="rest-flores"
+        class="pointer-events-none absolute bottom-0 left-0 w-full z-0"
+    >
+        <img
+            src="/imagenes/flor.png"
+            alt=""
+            class="select-none w-full h-auto [transform:scaleY(-1)]"
+        />
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="relative z-10 flex flex-col items-center">
+        <!-- SEPARADOR DECORATIVO -->
+        <img
+            data-item
+            id="rest-separador"
+            src="/imagenes/separador3.png"
+            alt=""
+            class="w-[230px] h-auto select-none"
+            draggable="false"
+        />
+
+        <!-- SILUETA -->
+        <img
+            data-item
+            id="rest-silueta"
+            src="/imagenes/silueta2.png"
+            alt=""
+            class="w-[130px] h-auto mt-8 select-none"
+            draggable="false"
+        />
+
+        <!-- SUBTÍTULO -->
+        <p
+            data-item
+            id="rest-sub"
+            class="m-0 mt-10 font-cormorant not-italic uppercase text-[#f1e9d6] text-[13px] tracking-[0.28em]"
+        >
+            Te espero para celebrar
+        </p>
+
+        <!-- MIS XV AÑOS -->
+        <p
+            data-item
+            id="rest-xv"
+            class="m-0 mt-2 font-cormorant not-italic uppercase text-[#f1e9d6] text-[24px] tracking-[0.22em]"
+        >
+            Mis XV Años
+        </p>
+
+        <!-- NOMBRE -->
+        <h2
+            data-item
+            id="rest-nombre"
+            class="m-0 mt-7 font-romantic text-[#ffc065] text-[clamp(2.2rem,11vw,3.2rem)] leading-[1.1] whitespace-nowrap"
+        >
+            Alexa Raffaela
+        </h2>
+    </div>
+</div>
+

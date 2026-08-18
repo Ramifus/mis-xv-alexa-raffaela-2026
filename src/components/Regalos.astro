@@ -1,0 +1,107 @@
+---
+// SugerenciaRegalo.astro  (Sugerencia de Regalos)
+---
+
+<div
+    data-entrada
+    id="sug-contenedor"
+    class="relative w-full flex flex-col items-center justify-center text-center px-6 pt-24 pb-14"
+>
+    <!-- WRAPPER (permite que las flores sobresalgan del card) -->
+    <div class="relative w-full max-w-[350px] mx-auto">
+    <!-- CARD -->
+    <div
+        data-item
+        id="sug-card"
+        class="relative w-full rounded-[26px] overflow-hidden
+               border border-[#ffc065]/40 shadow-[0_18px_45px_rgba(0,0,0,0.45)]"
+    >
+        <!-- FONDO AZUL -->
+        <img
+            src="/imagenes/azul.png"
+            alt=""
+            class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none select-none"
+        />
+
+        <!-- CONTENIDO -->
+        <div class="relative z-10 flex flex-col items-center px-8 pt-24 pb-16">
+            <!-- TÍTULO -->
+            <h2
+                class="m-0 font-romantic text-[#ffc065] text-[clamp(2.4rem,11vw,3.2rem)] leading-[1.45]"
+            >
+                Sugerencia de Regalos
+            </h2>
+
+            <!-- TEXTO -->
+            <p
+                class="m-0 mt-5 font-cormorant not-italic text-[#f1e9d6] text-[17px] leading-[1.7] max-w-[290px]"
+            >
+                Tu compañía es el regalo más valioso que podemos recibir. Si,
+                además, deseas obsequiarnos un detalle, hemos habilitado un
+                código QR
+            </p>
+
+            <!-- QR -->
+            <div class="mt-7 bg-white rounded-2xl p-4 shadow-lg">
+                <img
+                    src="/imagenes/qr.png"
+                    alt="Código QR"
+                    class="w-[210px] h-[210px] object-contain"
+                />
+            </div>
+
+            <!-- ICONO SOBRE (el PNG es negro: se colorea en dorado con máscara,
+                 igual que los iconos del Cronograma) -->
+            <div
+                role="img"
+                aria-label="Sobre de regalo"
+                class="mt-8 w-14 h-14 bg-[#ffc065]"
+                style="-webkit-mask:url('/imagenes/sobreregalo.png') center/contain no-repeat; mask:url('/imagenes/sobreregalo.png') center/contain no-repeat;"
+            >
+            </div>
+
+            <!-- TEXTO LLUVIA DE SOBRES -->
+            <p
+                class="m-0 mt-4 font-cormorant not-italic text-[#f1e9d6] text-[17px] leading-[1.7] max-w-[290px]"
+            >
+                Si lo prefieres, podrás hacerlo mediante la lluvia de sobres.
+                Los sobres estarán disponibles en la recepción.
+            </p>
+
+            <!-- CIERRE DORADO (en su propia línea) -->
+            <p
+                class="m-0 mt-4 font-cormorant not-italic text-[#ffc065] text-[18px] leading-[1.6] max-w-[290px]"
+            >
+                ¡Gracias por compartir esta celebración con nosotros!
+            </p>
+        </div>
+    </div>
+
+    <!-- FLOR ESQUINA SUPERIOR DERECHA -->
+    <div
+        data-item="der"
+        id="sug-flor-tr"
+        class="pointer-events-none absolute -top-5 -right-5 w-[42%] max-w-[150px] z-20"
+    >
+        <img
+            src="/imagenes/florcostado.png"
+            alt=""
+            class="select-none w-full h-auto scale-x-[-1]"
+        />
+    </div>
+
+    <!-- FLOR ESQUINA INFERIOR IZQUIERDA -->
+    <div
+        data-item="izq"
+        id="sug-flor-bl"
+        class="pointer-events-none absolute -bottom-5 -left-5 w-[42%] max-w-[150px] z-20"
+    >
+        <img
+            src="/imagenes/florcostado.png"
+            alt=""
+            class="select-none w-full h-auto scale-y-[-1]"
+        />
+    </div>
+    </div>
+</div>
+

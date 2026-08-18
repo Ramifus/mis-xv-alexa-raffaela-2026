@@ -116,8 +116,7 @@
 
 <!-- ═══════════════════════════════════════════════════════════════
      MODAL DE CONFIRMACIÓN
-     Por ahora es SOLO DISEÑO: el formulario no envía a ningún lado.
-     Pendiente: enlazar con Google Sheets (Apps Script / Forms).
+     Envía el nombre a Google Sheets vía Apps Script (SCRIPT_URL).
      Va fuera de #conf-contenedor para que las animaciones GSAP y el
      overflow-hidden de la sección no lo afecten.
      ═══════════════════════════════════════════════════════════════ -->
@@ -211,13 +210,84 @@
                 Enviar Confirmación
             </button>
 
-            <!-- MENSAJE DE RESPUESTA -->
+            <!-- MENSAJE DE ERROR -->
             <p
                 id="conf-form-mensaje"
-                class="m-0 mt-4 hidden font-cormorant not-italic text-[#ffc065] text-[16px] leading-[1.5]"
+                class="m-0 mt-4 hidden font-cormorant not-italic text-[#ff9d8a] text-[15px] leading-[1.5]"
             >
             </p>
         </form>
+
+        <!-- PANEL DE ÉXITO (animado) -->
+        <div
+            id="conf-exito"
+            class="hidden flex-col items-center px-6 pb-9 pt-8 text-center"
+        >
+            <!-- CHECK ANIMADO -->
+            <div class="relative mx-auto h-[92px] w-[92px]">
+                <span
+                    id="conf-exito-anillo"
+                    class="absolute inset-0 rounded-full border-2 border-[#ffc065]/50"
+                ></span>
+                <svg
+                    id="conf-exito-svg"
+                    viewBox="0 0 100 100"
+                    class="absolute inset-0 h-full w-full"
+                >
+                    <circle
+                        id="conf-exito-circulo"
+                        cx="50"
+                        cy="50"
+                        r="42"
+                        fill="none"
+                        stroke="#ffc065"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        transform="rotate(-90 50 50)"></circle>
+                    <path
+                        id="conf-exito-tilde"
+                        d="M31 51.5 L44.5 65 L69 38"
+                        fill="none"
+                        stroke="#ffc065"
+                        stroke-width="6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </div>
+
+            <h3
+                data-exito-item
+                class="m-0 mt-6 font-romantic not-italic text-[#ffc065] text-[30px] leading-[1.3]"
+            >
+                ¡Confirmación recibida!
+            </h3>
+
+            <span
+                data-exito-item
+                class="mt-4 block h-px w-[120px] bg-gradient-to-r from-transparent via-[#ffc065]/60 to-transparent"
+            ></span>
+
+            <p
+                id="conf-exito-nombre"
+                data-exito-item
+                class="m-0 mt-4 font-cormorant not-italic uppercase tracking-[0.18em] text-[#f1e9d6] text-[13px]"
+            >
+            </p>
+
+            <p
+                data-exito-item
+                class="m-0 mt-3 font-cormorant not-italic text-[#f1e9d6]/80 text-[16px] leading-[1.6]"
+            >
+                Gracias por acompañarnos en este día tan especial.
+            </p>
+
+            <p
+                data-exito-item
+                class="m-0 mt-5 font-romantic not-italic text-[#ffc065] text-[26px] leading-[1.2]"
+            >
+                ¡Te esperamos!
+            </p>
+        </div>
     </div>
 </div>
 
@@ -225,6 +295,10 @@
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
+
+    // URL de la app web de Apps Script (hoja "Confirmaciones - XV años Alexa Raffaela")
+    const SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbygOz7Iwy5lpNiet8Pi7rSAZSDhDo0DSMoMxGo1t19oo-fRkN4r3bjKBsqfzedyrEVt/exec";
 
     function initConf() {
         const contenedor = document.getElementById("conf-contenedor");
@@ -266,6 +340,12 @@
         const input = document.getElementById("conf-input-nombre");
         const mensaje = document.getElementById("conf-form-mensaje");
         if (!modal || !fondo || !caja || !abrir || !cerrar || !form) return;
+
+        // initConfModal corre en DOMContentLoaded y en astro:page-load; sin
+        // esto se registrarían dos listeners de submit y se guardaría la
+        // confirmación por duplicado en la hoja.
+        if (modal.dataset.iniciado === "1") return;
+        modal.dataset.iniciado = "1";
 
         // El Layout hace scroll sobre <html>, así que hay que bloquear los
         // dos: con body solo, el fondo se seguía moviendo. overscroll-behavior
@@ -325,20 +405,152 @@
             }
         });
 
-        // TODO: enlazar con Google Sheets. Por ahora solo muestra el mensaje.
-        form.addEventListener("submit", (e) => {
-            e.preventDefault();
+        // ── ENVÍO A GOOGLE SHEETS + ANIMACIÓN DE ÉXITO ─────────────
+        const exito = document.getElementById("conf-exito");
+        const exitoNombre = document.getElementById("conf-exito-nombre");
+        const circulo = document.getElementById("conf-exito-circulo");
+        const tilde = document.getElementById("conf-exito-tilde");
+        const anillo = document.getElementById("conf-exito-anillo");
+        const botonEnviar = form.querySelector('button[type="submit"]');
+        const textoBotonEnviar = botonEnviar && botonEnviar.textContent;
+
+        let enviando = false;
+        let yaConfirmo = false;
+
+        function mostrarExito(nombre) {
+            if (!exito) return;
+            if (exitoNombre) exitoNombre.textContent = nombre;
+
+            form.classList.add("hidden");
+            exito.classList.remove("hidden");
+            exito.classList.add("flex");
+
+            // preparar los trazos para dibujarlos
+            [circulo, tilde].forEach((trazo) => {
+                if (!trazo) return;
+                const largo = trazo.getTotalLength();
+                gsap.set(trazo, {
+                    strokeDasharray: largo,
+                    strokeDashoffset: largo,
+                });
+            });
+
+            gsap.timeline()
+                .fromTo(
+                    "#conf-exito-svg",
+                    { scale: 0.6, opacity: 0 },
+                    { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" },
+                )
+                .to(
+                    circulo,
+                    { strokeDashoffset: 0, duration: 0.65, ease: "power2.inOut" },
+                    "-=0.15",
+                )
+                .to(
+                    tilde,
+                    { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" },
+                    "-=0.15",
+                )
+                .fromTo(
+                    anillo,
+                    { scale: 0.9, opacity: 0.7 },
+                    {
+                        scale: 1.45,
+                        opacity: 0,
+                        duration: 0.9,
+                        ease: "power2.out",
+                        transformOrigin: "50% 50%",
+                    },
+                    "-=0.25",
+                )
+                .fromTo(
+                    exito.querySelectorAll("[data-exito-item]"),
+                    { opacity: 0, y: 18 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.5,
+                        stagger: 0.12,
+                        ease: "power2.out",
+                    },
+                    "-=0.7",
+                );
+
+            setTimeout(cerrarModal, 3600);
+        }
+
+        function mostrarError(texto) {
             if (!mensaje) return;
-            const nombre = input && input.value.trim();
-            if (!nombre) return;
-            mensaje.textContent =
-                "¡Gracias, " + nombre + "! Tu confirmación fue registrada.";
+            mensaje.textContent = texto;
             mensaje.classList.remove("hidden");
-            setTimeout(() => {
-                cerrarModal();
+        }
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            if (enviando || !input) return;
+
+            const nombre = input.value.trim().replace(/\s+/g, " ");
+
+            if (nombre.length < 3) {
+                mostrarError("Por favor escribe el nombre y apellido.");
+                gsap.fromTo(
+                    input,
+                    { x: -8 },
+                    { x: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" },
+                );
+                return;
+            }
+
+            enviando = true;
+            mensaje && mensaje.classList.add("hidden");
+            if (botonEnviar) {
+                botonEnviar.disabled = true;
+                botonEnviar.textContent = "Enviando...";
+                botonEnviar.classList.add("opacity-70");
+            }
+
+            // urlencoded: Apps Script lo lee directo en e.parameter.nombre
+            const datos = new URLSearchParams();
+            datos.append("nombre", nombre);
+
+            try {
+                const respuesta = await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded;charset=UTF-8",
+                    },
+                    body: datos.toString(),
+                });
+
+                const cuerpo = await respuesta.text();
+                console.log("[Confirmar] respuesta de Google:", cuerpo);
+
+                if (!respuesta.ok || /"?(ok"?\s*:\s*false|error)/i.test(cuerpo)) {
+                    throw new Error(cuerpo);
+                }
+
+                yaConfirmo = true;
                 form.reset();
-                mensaje.classList.add("hidden");
-            }, 2200);
+                mostrarExito(nombre);
+            } catch (error) {
+                console.error("[Confirmar] fallo el envio:", error);
+                mostrarError("Hubo un error de conexión, intenta de nuevo.");
+                enviando = false;
+                if (botonEnviar) {
+                    botonEnviar.disabled = false;
+                    botonEnviar.textContent = textoBotonEnviar;
+                    botonEnviar.classList.remove("opacity-70");
+                }
+            }
+        });
+
+        // si ya confirmó, al reabrir se ve el agradecimiento, no el formulario
+        abrir.addEventListener("click", () => {
+            if (!yaConfirmo || !exito) return;
+            form.classList.add("hidden");
+            exito.classList.remove("hidden");
+            exito.classList.add("flex");
         });
     }
 

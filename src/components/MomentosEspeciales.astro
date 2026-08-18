@@ -25,15 +25,17 @@ const items = [
 ---
 
 <div
+    data-entrada
     id="crono-contenedor"
     class="relative w-full flex flex-col items-center justify-center text-center px-6 pt-2 pb-14"
 >
     <!-- TÍTULO -->
     <h2
+        data-item
         id="crono-titulo"
-        class="m-0 font-romantic text-[#ffc065] text-[clamp(2.6rem,12vw,3.4rem)] leading-[1.1]"
+        class="m-0 font-romantic text-[#ffc065] text-[clamp(2.6rem,12vw,3.4rem)] leading-[1.4]"
     >
-        Itinerario
+        Momentos Especiales
     </h2>
 
     <!-- TIMELINE -->
@@ -72,7 +74,14 @@ const items = [
         <div class="relative z-10 flex flex-col gap-9">
             {
                 items.map((it) => (
-                    <div class="crono-fila grid grid-cols-2 items-center gap-5">
+                    // Cada fila entra por el lado en el que está su icono:
+                    // las de la izquierda vienen desde la izquierda y las de
+                    // la derecha desde la derecha, alternando a lo largo de
+                    // la línea del tiempo.
+                    <div
+                        data-item={it.side === "left" ? "izq" : "der"}
+                        class="crono-fila grid grid-cols-2 items-center gap-5"
+                    >
                         {it.side === "left" ? (
                             <>
                                 <div class="flex justify-center">
@@ -114,32 +123,3 @@ const items = [
     </div> -->
 </div>
 
-<script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-    gsap.registerPlugin(ScrollTrigger);
-
-    function initCrono() {
-        const contenedor = document.getElementById("crono-contenedor");
-        if (!contenedor) return;
-
-        gsap.from(
-            ["#crono-titulo", ".crono-fila", "#crono-footer"],
-            {
-                opacity: 0,
-                y: 22,
-                duration: 1,
-                ease: "power3.out",
-                stagger: 0.12,
-                scrollTrigger: {
-                    trigger: contenedor,
-                    start: "top 85%",
-                    toggleActions: "play none none reset",
-                },
-            },
-        );
-    }
-
-    document.addEventListener("DOMContentLoaded", initCrono);
-    document.addEventListener("astro:page-load", initCrono);
-</script>

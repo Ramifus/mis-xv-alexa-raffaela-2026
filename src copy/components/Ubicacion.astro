@@ -9,40 +9,77 @@ const linkUbicacion = "https://maps.app.goo.gl/7h2TdWepnryqwrKz8";
     class="relative w-full flex flex-col items-center justify-center text-center px-6 pt-2 pb-14"
 >
     <!-- CARD -->
+    <!-- Esquinas asimétricas (grandes arriba-izq / abajo-der, pequeñas en las
+         otras dos) + filete interior: da el aire de tarjeta de invitación. -->
     <div
         id="direccion-card"
-        class="relative w-full max-w-[340px] mx-auto rounded-[26px] bg-[#ffc065]
+        class="relative w-full max-w-[340px] mx-auto bg-[#ffc065]
+               rounded-tl-[56px] rounded-br-[56px] rounded-tr-[18px] rounded-bl-[18px]
                border border-[#16304d]/25
                shadow-[0_18px_45px_rgba(0,0,0,0.35)] px-8 py-10 flex flex-col items-center"
     >
-        <!-- IMAGEN RECEPCIÓN (teñida en azul marino) -->
-        <div
-            id="direccion-imagen"
-            class="w-[120px] h-[150px] bg-[#16304d]"
-            style="-webkit-mask: url('/imagenes/recepcion.png') center/contain no-repeat; mask: url('/imagenes/recepcion.png') center/contain no-repeat;"
-        >
-        </div>
+        <!-- FILETE INTERIOR DECORATIVO -->
+        <span
+            class="pointer-events-none absolute inset-[10px] border border-[#16304d]/30
+                   rounded-tl-[46px] rounded-br-[46px] rounded-tr-[10px] rounded-bl-[10px]"
+        ></span>
 
-        <!-- RECEPCIÓN SOCIAL -->
+        <!-- RECEPCIÓN -->
         <p
             id="direccion-subtitulo"
-            class="m-0 mt-4 font-romantic text-[#16304d] text-[44px] leading-none"
+            class="relative m-0 font-romantic text-[#16304d] text-[36px] leading-[1.4]"
         >
-            Recepción Social
+            Recepción
         </p>
 
-        <!-- TÍTULO (nombre del lugar) -->
+        <!-- ENTRADILLA (enlaza con el logo que va justo debajo) -->
+        <p
+            id="direccion-entradilla"
+            class="relative m-0 mt-2 font-cormorant not-italic font-bold text-[#16304d] text-[18px] leading-[1.5]"
+        >
+            Los esperamos en el
+        </p>
+
+        <!-- LOGO -->
+        <!-- logo.png trae su propio fondo azul (#001633) opaco y rectangular:
+             suelto se ve como un bloque de puntas cuadradas sobre el dorado.
+             Va dentro de un marco con overflow-hidden que le redondea las
+             esquinas siguiendo la misma diagonal que la tarjeta, con el mismo
+             azul de fondo para que el relleno no se note. -->
+        <div
+            id="direccion-logo-marco"
+            class="relative mt-4 overflow-hidden bg-[#001633] px-5 py-4
+                   rounded-tl-[26px] rounded-br-[26px] rounded-tr-[10px] rounded-bl-[10px]"
+        >
+            <!-- filete dorado interior -->
+            <span
+                class="pointer-events-none absolute inset-[6px] border border-[#ffc065]/35
+                       rounded-tl-[20px] rounded-br-[20px] rounded-tr-[5px] rounded-bl-[5px]"
+            ></span>
+
+            <img
+                id="direccion-imagen"
+                src="/imagenes/logo.png"
+                alt="El Portal Jardines"
+                class="relative block w-[170px] h-auto select-none"
+                draggable="false"
+            />
+        </div>
+
+        <!-- TÍTULO (nombre del lugar) — oculto por ahora; descomentar para volver a mostrarlo -->
+        <!--
         <p
             id="direccion-titulo"
             class="m-0 mt-5 font-cormorant not-italic font-semibold text-[#16304d] text-[21px] leading-[1.25]"
         >
             El Portal – Centro de Convenciones y Eventos “Jardines”
         </p>
+        -->
 
         <!-- DIRECCIÓN -->
         <p
             id="direccion-texto"
-            class="m-0 mt-3 font-cormorant not-italic text-[#16304d]/90 text-[18px] leading-[1.55]"
+            class="m-0 mt-5 font-cormorant not-italic text-[#16304d]/90 text-[18px] leading-[1.55]"
         >
             Av. Ricardo Jaimes Freyre Nº 1929, esquina Parque Lincoln
         </p>
@@ -52,7 +89,7 @@ const linkUbicacion = "https://maps.app.goo.gl/7h2TdWepnryqwrKz8";
             id="direccion-hora"
             class="m-0 mt-5 font-cormorant not-italic font-bold uppercase text-[#16304d] text-[22px] tracking-[0.08em]"
         >
-            18:00 horas
+            18:30 horas
         </p>
 
         <!-- BOTÓN -->
